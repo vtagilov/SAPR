@@ -9,7 +9,7 @@ import UIKit
 
 class CustomNavigationController: UINavigationController {
 
-    let VCs = [NodeConfiguratorViewController(), StickConfiguratorViewController()]
+    let VCs = [ConstructionConfiguratorVC(), StickConfiguratorViewController()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

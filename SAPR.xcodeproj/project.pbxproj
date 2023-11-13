@@ -7,32 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E79AE1602B02249200291446 /* RodParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE15F2B02249200291446 /* RodParametres.swift */; };
+		E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1612B02562C00291446 /* ConstructionParametersView.swift */; };
 		E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */; };
 		E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */; };
 		E7D740FC2AF15D4B00F03C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D740FB2AF15D4B00F03C13 /* Assets.xcassets */; };
 		E7D740FF2AF15D4B00F03C13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D740FD2AF15D4B00F03C13 /* LaunchScreen.storyboard */; };
-		E7D741072AF17C4700F03C13 /* PreProcessorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D741062AF17C4700F03C13 /* PreProcessorVC.swift */; };
 		E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D741092AF17D8700F03C13 /* ConstructionView.swift */; };
-		E7FAE9012AFA90810078510E /* StickParametersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9002AFA90810078510E /* StickParametersTableViewCell.swift */; };
 		E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9022AFAAEDB0078510E /* CustomNavigationController.swift */; };
-		E7FAE90A2AFAAF5F0078510E /* NodeConfiguratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9092AFAAF5F0078510E /* NodeConfiguratorViewController.swift */; };
+		E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */; };
 		E7FAE90C2AFAB01B0078510E /* StickConfiguratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */; };
 		E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */; };
+		E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */; };
+		E7FAE9122AFABFD80078510E /* UIStick.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9112AFABFD80078510E /* UIStick.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E79AE15F2B02249200291446 /* RodParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodParametres.swift; sourceTree = "<group>"; };
+		E79AE1612B02562C00291446 /* ConstructionParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionParametersView.swift; sourceTree = "<group>"; };
 		E7D740EF2AF15D4A00F03C13 /* SAPR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAPR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E7D740FB2AF15D4B00F03C13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7D740FE2AF15D4B00F03C13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E7D741062AF17C4700F03C13 /* PreProcessorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreProcessorVC.swift; sourceTree = "<group>"; };
 		E7D741092AF17D8700F03C13 /* ConstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionView.swift; sourceTree = "<group>"; };
-		E7FAE9002AFA90810078510E /* StickParametersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickParametersTableViewCell.swift; sourceTree = "<group>"; };
 		E7FAE9022AFAAEDB0078510E /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
-		E7FAE9092AFAAF5F0078510E /* NodeConfiguratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeConfiguratorViewController.swift; sourceTree = "<group>"; };
+		E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionConfiguratorVC.swift; sourceTree = "<group>"; };
 		E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickConfiguratorViewController.swift; sourceTree = "<group>"; };
 		E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickLocationVC.swift; sourceTree = "<group>"; };
+		E7FAE9112AFABFD80078510E /* UIStick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +71,6 @@
 			children = (
 				E7D741082AF17C5D00F03C13 /* Application */,
 				E7D7410B2AF17D9500F03C13 /* Recourses */,
-				E7D741062AF17C4700F03C13 /* PreProcessorVC.swift */,
-				E7FAE9002AFA90810078510E /* StickParametersTableViewCell.swift */,
 				E7FAE9052AFAAEEC0078510E /* Screens */,
 				E7FAE9042AFAAEDF0078510E /* Navigation */,
 			);
@@ -105,33 +107,21 @@
 		E7FAE9052AFAAEEC0078510E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */,
+				E79AE15F2B02249200291446 /* RodParametres.swift */,
+				E79AE1612B02562C00291446 /* ConstructionParametersView.swift */,
+				E7FAE9112AFABFD80078510E /* UIStick.swift */,
 				E7D741092AF17D8700F03C13 /* ConstructionView.swift */,
 				E7FAE9082AFAAF1F0078510E /* PreProcessor */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		E7FAE9062AFAAEF60078510E /* StickConfigurator */ = {
-			isa = PBXGroup;
-			children = (
-				E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */,
-			);
-			path = StickConfigurator;
-			sourceTree = "<group>";
-		};
-		E7FAE9072AFAAF150078510E /* NodeConfigurator */ = {
-			isa = PBXGroup;
-			children = (
-				E7FAE9092AFAAF5F0078510E /* NodeConfiguratorViewController.swift */,
-			);
-			path = NodeConfigurator;
-			sourceTree = "<group>";
-		};
 		E7FAE9082AFAAF1F0078510E /* PreProcessor */ = {
 			isa = PBXGroup;
 			children = (
-				E7FAE9062AFAAEF60078510E /* StickConfigurator */,
-				E7FAE9072AFAAF150078510E /* NodeConfigurator */,
+				E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */,
+				E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */,
 			);
 			path = PreProcessor;
 			sourceTree = "<group>";
@@ -208,13 +198,15 @@
 			files = (
 				E7FAE90C2AFAB01B0078510E /* StickConfiguratorViewController.swift in Sources */,
 				E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */,
-				E7FAE9012AFA90810078510E /* StickParametersTableViewCell.swift in Sources */,
+				E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */,
 				E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */,
 				E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */,
-				E7D741072AF17C4700F03C13 /* PreProcessorVC.swift in Sources */,
+				E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */,
+				E7FAE9122AFABFD80078510E /* UIStick.swift in Sources */,
 				E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */,
-				E7FAE90A2AFAAF5F0078510E /* NodeConfiguratorViewController.swift in Sources */,
+				E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */,
 				E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */,
+				E79AE1602B02249200291446 /* RodParametres.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

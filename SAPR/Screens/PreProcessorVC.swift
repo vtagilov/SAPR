@@ -9,7 +9,7 @@ import UIKit
 
 class PreProcessorVC: UIViewController {
 
-    let constructionView = ConstructionView()
+    let constructionView = ConstructionView(CGSize(width: 1, height: 1))
     
     let stickPickerView = UIPickerView()
     let stickConnectionsTableView = UITableView()
@@ -92,7 +92,6 @@ extension PreProcessorVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedNumber = row + 1
         self.stickConnectionsTableView.reloadData()
     }
 }
