@@ -17,4 +17,10 @@ struct RodParametres {
     var length: Double
     var square: Double
     var material: RodMaterial
+    var copiedFrom: Int?
+}
+
+struct SupportParametres {
+    var isLeftFixed: Bool
+    var isRightFixed: Bool
 }

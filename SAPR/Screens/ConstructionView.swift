@@ -16,10 +16,16 @@ protocol ConstructionViewDelegate {
 class ConstructionView: UIView {
 
     let stick = UIStick()
+    
+    let leftSupport = UISupport(frame: CGRect(x: 0, y: 0, width: 50, height: 100))
+    let rightSupport = UISupport(frame: CGRect(x: 0, y: 0, width: 50, height: 100))
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
     var standartConstraints = [NSLayoutConstraint]()
+    
+    var rightSupportConstraints = [NSLayoutConstraint]()
         
     var delegate: ConstructionViewDelegate?
     
@@ -37,7 +43,6 @@ class ConstructionView: UIView {
     
     
     private func configureUI() {
-        
         stick.delegate = self
         stick.translatesAutoresizingMaskIntoConstraints = false
         
@@ -45,15 +50,27 @@ class ConstructionView: UIView {
         scrollView.contentSize = CGSize(width: frame.width, height: 200)
         scrollView.minimumZoomScale = 0.5
         scrollView.maximumZoomScale = 5.0
-//        scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .blue
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.backgroundColor = .red
         
+        leftSupport.isHidden = true
+        leftSupport.translatesAutoresizingMaskIntoConstraints = false
+
+        rightSupport.isHidden = true
+        rightSupport.translatesAutoresizingMaskIntoConstraints = false
+        rightSupport.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+
         setConstraints()
-        
+    }
+    
+    
+    
+    func configureSupports(_ parametres: SupportParametres) {
+        leftSupport.isHidden = !parametres.isLeftFixed
+        rightSupport.isHidden = !parametres.isRightFixed
+        setRightSupportConstraints()
     }
     
 }
@@ -69,6 +86,8 @@ extension ConstructionView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(stick)
+        contentView.addSubview(leftSupport)
+        contentView.addSubview(rightSupport)
         
         standartConstraints = [
             contentView.widthAnchor.constraint(greaterThanOrEqualToConstant: 5000),
@@ -79,7 +98,11 @@ extension ConstructionView {
             stick.widthAnchor.constraint(greaterThanOrEqualToConstant: frame.width / 4),
             stick.heightAnchor.constraint(greaterThanOrEqualToConstant: frame.height / 10),
             stick.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            stick.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            stick.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            leftSupport.rightAnchor.constraint(equalTo: stick.leftAnchor),
+            leftSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
+            leftSupport.heightAnchor.constraint(equalToConstant: 50)
         ]
         
         NSLayoutConstraint.activate(standartConstraints)
@@ -109,7 +132,25 @@ extension ConstructionView {
             ])
         }
         delegate?.setParametrs(newStick)
+        setRightSupportConstraints()
     }
+    
+    
+    private func setRightSupportConstraints() {
+        var stick = self.stick
+        while stick.rightStick != nil {
+            stick = stick.rightStick!
+        }
+        NSLayoutConstraint.deactivate(rightSupportConstraints)
+        rightSupportConstraints = [
+            rightSupport.rightAnchor.constraint(equalTo: stick.rightAnchor),
+            rightSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
+            rightSupport.heightAnchor.constraint(equalToConstant: 50)
+        ]
+        NSLayoutConstraint.activate(rightSupportConstraints)
+    }
+    
+    
     
 }
 

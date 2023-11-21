@@ -8,103 +8,90 @@
 import UIKit
 
 class ConstructionConfiguratorVC: UIViewController {
-
+    
     var rodParametres = [RodParametres]()
+    
+    var supportParametres = SupportParametres(isLeftFixed: false, isRightFixed: false)
     
     var constructionView: ConstructionView?
     
     var constrictionParametresView: ConstructionParametersView?
     
-    let numberOfRod = UILabel()
+    var supportParametresView: SupportParametresView?
     
-    let deleteButton = UIButton()
+    var constructionConstraints = [NSLayoutConstraint]()
+    var supportConstraints = [NSLayoutConstraint]()
     
-    let lengthField = UITextField()
-    let squareField = UITextField()
+    var tapRecognizer: UITapGestureRecognizer?
     
-    let lengthLabel = UILabel()
-    let squareLabel = UILabel()
-    
-    let elasticModulusLabel = UILabel()
-    let permissibleVoltageLabel = UILabel()
-    
-    let elasticModulusField = UITextField()
-    let permissibleVoltageField = UITextField()
-    
-    let isCopyLabel = UILabel()
-    let isCopyButton = UIButton()
-    let copyFromPicker = UIPickerView()
-    
-    var currentRodNumber = Int()
-    
-    
+    var segmentControl = UISegmentedControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Конструкция"
         
-        
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizerAction))
+        view.addGestureRecognizer(tapRecognizer!)
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         constructionView = ConstructionView(CGSize(width: view.frame.width, height: 200))
         constructionView?.delegate = self
-        constructionView?.delegate?.setParametrs(constructionView!.stick)
+        
+        supportParametresView = SupportParametresView(delegate: self, supportParametres: supportParametres, size: CGSize(width: view.frame.width, height: 200))
+        supportParametresView?.isHidden = true
         
         constrictionParametresView = ConstructionParametersView(CGSize(width: view.frame.width, height: 200))
         constrictionParametresView?.delegate = self
+        constrictionParametresView?.rodCount = rodParametres.count
         
         configureUI()
         setConstraints()
+        
+        constructionView?.delegate?.setParametrs(constructionView!.stick)
+        
     }
     
+    
+    func showErrorAlert(message: String) {
+        if let presentedViewController = presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                self.presentNewAlert(message: message)
+            }
+        } else {
+            presentNewAlert(message: message)
+        }
+    }
+
+    func presentNewAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
     
 
     private func configureUI() {
         constructionView?.translatesAutoresizingMaskIntoConstraints = false
         constrictionParametresView?.translatesAutoresizingMaskIntoConstraints = false
-        
-        deleteButton.setTitle("Удалить", for: .normal)
-        deleteButton.titleLabel?.textAlignment = .right
-        deleteButton.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
-        deleteButton.setTitleColor(.systemBlue, for: .normal)
-        
-        lengthLabel.text = "Длина [L]"
-        squareLabel.text = "Площадь поперечного сечения [A]"
-        elasticModulusLabel.text = "Модуль упругости [E]"
-        permissibleVoltageLabel.text = "Допускаемое напряжение [σ]"
-        isCopyLabel.text = "Cкопировать материал из "
-        
-        for label in [squareLabel, lengthLabel, elasticModulusLabel, permissibleVoltageLabel, isCopyLabel] {
-            label.textAlignment = .center
-            label.font = .systemFont(ofSize: 24)
-        }
-        
-        
-        numberOfRod.font = .boldSystemFont(ofSize: 32)
-//        numberOfRod.textAlignment = .left
-        
-        for textField in [lengthField, squareField, permissibleVoltageField, elasticModulusField] {
-            textField.keyboardType = .decimalPad
-            textField.returnKeyType = .done
-            textField.font = .systemFont(ofSize: 24)
-            textField.textAlignment = .center
-            textField.backgroundColor = .darkGray
-            textField.layer.cornerRadius = 5
-            textField.delegate = self
-        }
-    
-        
-        
-        for subView in [squareLabel, lengthLabel, numberOfRod, lengthField, squareField, deleteButton, elasticModulusLabel, permissibleVoltageLabel, isCopyLabel, elasticModulusField, permissibleVoltageField] {
-            subView.translatesAutoresizingMaskIntoConstraints = false
-        }
+        supportParametresView?.translatesAutoresizingMaskIntoConstraints = false
+        segmentControl = UISegmentedControl()
+        segmentControl.insertSegment(withTitle: "Стержни", at: 0, animated: true)
+        segmentControl.insertSegment(withTitle: "Узлы", at: 1, animated: true)
+        segmentControl.selectedSegmentIndex = 0
+        segmentControl.addTarget(self, action: #selector(segmentControlAction), for: .valueChanged)
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
     }
     
     
     
-    @objc private func deleteButtonAction() {
-        print("deleteButtonAction")
+    @objc private func tapRecognizerAction() {
+        constrictionParametresView?.contentView.subviews.forEach({ $0.resignFirstResponder() })
+    }
+    
+    @objc private func segmentControlAction(_ sender: UISegmentedControl) {
+        configureConstraintsFor(sender.selectedSegmentIndex)
     }
 
 }
@@ -113,32 +100,63 @@ class ConstructionConfiguratorVC: UIViewController {
 
 extension ConstructionConfiguratorVC: ConstructionViewDelegate {
     func setParametrs(_ rod: UIStick) {
-        currentRodNumber = rod.number
-        numberOfRod.text = "Стержень №\(currentRodNumber + 1)"
-        if rod.number >= rodParametres.count {
-            lengthField.text = "1.0"
-            squareField.text = "1.0"
-            permissibleVoltageField.text = "1.0"
-            elasticModulusField.text = "1.0"
-            rodParametres.append(RodParametres(length: Double(lengthField.text!)!, square: Double(squareField.text!)!, material: RodMaterial(elasticModulus: 1.0, permissibleVoltage: 1.0)))
+        
+        if rodParametres.count > rod.number {
+            constrictionParametresView?.configureRod(number: rod.number, rodParameter: rodParametres[rod.number])
         } else {
-            lengthField.text = String(rodParametres[currentRodNumber].length)
-            squareField.text = String(rodParametres[currentRodNumber].square)
+            rodParametres.append(RodParametres(length: 1.0, square: 1.0, material: RodMaterial(elasticModulus: 1.0, permissibleVoltage: 1.0)))
+            constrictionParametresView?.configureRod(number: rod.number, rodParameter: rodParametres[rod.number])
         }
+        constrictionParametresView?.rodCount = rodParametres.count
+    }
+}
+
+
+
+extension ConstructionConfiguratorVC: ConstructionParametersDelegate {
+    func getParametres(_ rodNumber: Int) -> RodParametres {
+        if rodParametres[rodNumber].copiedFrom != nil {
+            return rodParametres[rodParametres[rodNumber].copiedFrom!]
+        }
+        return rodParametres[rodNumber]
     }
     
+    func setParametrs(_ number: Int, _ rodParameter: RodParametres) {
+        self.rodParametres[number] = rodParameter
+    }
+    
+    func deleteRod(_ numer: Int) {
+        print("delete rod... in progress..")
+    }
     
 }
+
+
 
 
 // MARK: - Constraints
 extension ConstructionConfiguratorVC {
     private func setConstraints() {
         
-        for subView in [constructionView!, squareLabel, lengthLabel, numberOfRod, lengthField, squareField, deleteButton, elasticModulusField, elasticModulusLabel, permissibleVoltageField, permissibleVoltageLabel] {
+        for subView in [constructionView!, constrictionParametresView!, segmentControl, supportParametresView!] {
             view.addSubview(subView)
         }
         
+        constructionConstraints = [
+            constrictionParametresView!.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 20),
+            constrictionParametresView!.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            constrictionParametresView!.leftAnchor.constraint(equalTo: view.leftAnchor),
+            constrictionParametresView!.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ]
+        
+        supportConstraints = [
+            supportParametresView!.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 20),
+            supportParametresView!.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            supportParametresView!.leftAnchor.constraint(equalTo: view.leftAnchor),
+            supportParametresView!.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ]
+        
+        NSLayoutConstraint.activate(constructionConstraints)
         NSLayoutConstraint.activate([
             
             constructionView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -146,60 +164,38 @@ extension ConstructionConfiguratorVC {
             constructionView!.leftAnchor.constraint(equalTo: view.leftAnchor),
             constructionView!.rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            numberOfRod.topAnchor.constraint(equalTo: constructionView!.bottomAnchor, constant: 20),
-            numberOfRod.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            numberOfRod.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
-            
-            deleteButton.rightAnchor.constraint(equalTo: view.rightAnchor),
-            deleteButton.leftAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
-            deleteButton.centerYAnchor.constraint(equalTo: numberOfRod.centerYAnchor),
-            
-            lengthLabel.topAnchor.constraint(equalTo: numberOfRod.bottomAnchor, constant: 10),
-            lengthLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            lengthLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
-            lengthField.topAnchor.constraint(equalTo: lengthLabel.bottomAnchor, constant: 5),
-            lengthField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            lengthField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            
-            squareLabel.topAnchor.constraint(equalTo: lengthField.bottomAnchor, constant: 20),
-            squareLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            squareLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
-            squareField.topAnchor.constraint(equalTo: squareLabel.bottomAnchor, constant: 5),
-            squareField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            squareField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            
-            elasticModulusLabel.topAnchor.constraint(equalTo: squareField.bottomAnchor, constant: 40),
-            elasticModulusLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            elasticModulusLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
-            elasticModulusField.topAnchor.constraint(equalTo: elasticModulusLabel.bottomAnchor, constant: 5),
-            elasticModulusField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            elasticModulusField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            
-            permissibleVoltageLabel.topAnchor.constraint(equalTo: elasticModulusField.bottomAnchor, constant: 20),
-            permissibleVoltageLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            permissibleVoltageLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
-            permissibleVoltageField.topAnchor.constraint(equalTo: permissibleVoltageLabel.bottomAnchor, constant: 5),
-            permissibleVoltageField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            permissibleVoltageField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-                
+            segmentControl.topAnchor.constraint(equalTo: constructionView!.bottomAnchor),
+            segmentControl.heightAnchor.constraint(equalToConstant: 50),
+            segmentControl.leftAnchor.constraint(equalTo: view.leftAnchor),
+            segmentControl.rightAnchor.constraint(equalTo: view.rightAnchor)
             
         ])
+        
+    }
+    
+    
+    // 0 - constrictionParametresView, 1 - supports
+    private func configureConstraintsFor(_ num: Int) {
+        if num == 0 {
+            NSLayoutConstraint.deactivate(supportConstraints)
+            NSLayoutConstraint.activate(constructionConstraints)
+            supportParametresView?.isHidden = true
+            constrictionParametresView?.isHidden = false
+            
+        } else {
+            NSLayoutConstraint.deactivate(constructionConstraints)
+            NSLayoutConstraint.activate(supportConstraints)
+            constrictionParametresView?.isHidden = true
+            supportParametresView?.isHidden = false
+        }
     }
 }
 
 
 
-extension ConstructionConfiguratorVC: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        rodParametres[currentRodNumber] = RodParametres(length: Double(lengthField.text!)!, square: Double(squareField.text!)!, material: RodMaterial(elasticModulus: 1.0, permissibleVoltage: 1.0))
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+extension ConstructionConfiguratorVC: SupportParametresViewDelegate {
+    func setParametrs(_ parametres: SupportParametres) {
+        self.supportParametres = parametres
+        constructionView?.configureSupports(self.supportParametres)
     }
 }

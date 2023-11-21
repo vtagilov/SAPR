@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		E79AE1602B02249200291446 /* RodParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE15F2B02249200291446 /* RodParametres.swift */; };
 		E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1612B02562C00291446 /* ConstructionParametersView.swift */; };
+		E79AE1642B0633E700291446 /* UISupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1632B0633E700291446 /* UISupport.swift */; };
+		E79AE1662B06376400291446 /* SupportParametresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1652B06376400291446 /* SupportParametresView.swift */; };
+		E79AE1682B08A78000291446 /* NodeParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1672B08A78000291446 /* NodeParametres.swift */; };
 		E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */; };
 		E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */; };
 		E7D740FC2AF15D4B00F03C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D740FB2AF15D4B00F03C13 /* Assets.xcassets */; };
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		E79AE15F2B02249200291446 /* RodParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodParametres.swift; sourceTree = "<group>"; };
 		E79AE1612B02562C00291446 /* ConstructionParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionParametersView.swift; sourceTree = "<group>"; };
+		E79AE1632B0633E700291446 /* UISupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISupport.swift; sourceTree = "<group>"; };
+		E79AE1652B06376400291446 /* SupportParametresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportParametresView.swift; sourceTree = "<group>"; };
+		E79AE1672B08A78000291446 /* NodeParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeParametres.swift; sourceTree = "<group>"; };
 		E7D740EF2AF15D4A00F03C13 /* SAPR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAPR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,10 +115,13 @@
 			children = (
 				E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */,
 				E79AE15F2B02249200291446 /* RodParametres.swift */,
+				E79AE1672B08A78000291446 /* NodeParametres.swift */,
 				E79AE1612B02562C00291446 /* ConstructionParametersView.swift */,
 				E7FAE9112AFABFD80078510E /* UIStick.swift */,
 				E7D741092AF17D8700F03C13 /* ConstructionView.swift */,
 				E7FAE9082AFAAF1F0078510E /* PreProcessor */,
+				E79AE1632B0633E700291446 /* UISupport.swift */,
+				E79AE1652B06376400291446 /* SupportParametresView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -199,14 +208,17 @@
 				E7FAE90C2AFAB01B0078510E /* StickConfiguratorViewController.swift in Sources */,
 				E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */,
 				E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */,
+				E79AE1662B06376400291446 /* SupportParametresView.swift in Sources */,
 				E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */,
 				E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */,
+				E79AE1642B0633E700291446 /* UISupport.swift in Sources */,
 				E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */,
 				E7FAE9122AFABFD80078510E /* UIStick.swift in Sources */,
 				E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */,
 				E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */,
 				E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */,
 				E79AE1602B02249200291446 /* RodParametres.swift in Sources */,
+				E79AE1682B08A78000291446 /* NodeParametres.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

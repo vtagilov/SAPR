@@ -8,12 +8,11 @@
 import UIKit
 
 
-
-
 protocol StickPrametersDelegate {
     func addStickTo(_ direction: Direction)
     func setParameters(_ stick: UIStick)
 }
+
 
 
 class UIStick: UIView {
