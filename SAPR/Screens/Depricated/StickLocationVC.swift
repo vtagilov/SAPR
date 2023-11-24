@@ -114,8 +114,9 @@ extension StickLocationVC {
 extension StickLocationVC: StickPrametersDelegate {
     
     func setParameters(_ stick: UIStick) {
-        print("dasdasd")
+        print("StickLocationVC: StickPrametersDelegate - setParameters")
     }
+    
     
     func addStickTo(_ direction: Direction) {
         var stick = stick

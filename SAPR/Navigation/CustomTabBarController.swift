@@ -14,7 +14,7 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewControllers = [ConstructionConfiguratorVC(), StickConfiguratorViewController(), StickLocationVC()]
-        
+        viewControllers?[1].title = "Cилы"
         
         tabBar.items![0].image = UIImage(systemName: "smallcircle.filled.circle")
         tabBar.items![1].image = UIImage(systemName: "plus.circle")!.withRenderingMode(.automatic)

@@ -11,7 +11,6 @@ class StickConfiguratorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Стержни"
 
     }
     

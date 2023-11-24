@@ -25,6 +25,8 @@ class ConstructionView: UIView {
     
     var standartConstraints = [NSLayoutConstraint]()
     
+    var rightStickConstraints = [[NSLayoutConstraint]()]
+    
     var rightSupportConstraints = [NSLayoutConstraint]()
         
     var delegate: ConstructionViewDelegate?
@@ -51,7 +53,7 @@ class ConstructionView: UIView {
         scrollView.minimumZoomScale = 0.5
         scrollView.maximumZoomScale = 5.0
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .blue
+        scrollView.backgroundColor = .white
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -71,6 +73,21 @@ class ConstructionView: UIView {
         leftSupport.isHidden = !parametres.isLeftFixed
         rightSupport.isHidden = !parametres.isRightFixed
         setRightSupportConstraints()
+    }
+    
+    
+    func deleteLastStick() {
+        scrollView.contentSize.width -= frame.width / 4 - 25
+        var stick = stick
+        while stick.rightStick?.rightStick != nil {
+            stick = stick.rightStick!
+        }
+        stick.rightStick = nil
+        
+        NSLayoutConstraint.deactivate(rightStickConstraints.last!)
+        rightStickConstraints.removeLast()
+        setRightSupportConstraints()
+        delegate?.setParametrs(stick)
     }
     
 }
@@ -100,9 +117,9 @@ extension ConstructionView {
             stick.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             stick.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-            leftSupport.rightAnchor.constraint(equalTo: stick.leftAnchor),
+            leftSupport.rightAnchor.constraint(equalTo: stick.leftAnchor, constant: 6),
             leftSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
-            leftSupport.heightAnchor.constraint(equalToConstant: 50)
+            leftSupport.heightAnchor.constraint(equalToConstant: 45)
         ]
         
         NSLayoutConstraint.activate(standartConstraints)
@@ -118,18 +135,21 @@ extension ConstructionView {
     private func addConstraintsToNewStick(from stick: UIStick, to newStick: UIStick, direction: Direction) {
         
         newStick.number = stick.number + 1
-        print(newStick.number)
         contentView.addSubview(newStick)
         scrollView.contentSize.width += frame.width / 4 - 25
         if direction == .left {
             
         } else if direction == .right {
-            NSLayoutConstraint.activate([
-                newStick.leftAnchor.constraint(equalTo: stick.rightAnchor, constant: -25),
+            
+            rightStickConstraints.append([
+                newStick.leftAnchor.constraint(equalTo: stick.rightAnchor, constant: -2),
                 newStick.widthAnchor.constraint(greaterThanOrEqualToConstant: frame.width / 4),
                 newStick.heightAnchor.constraint(greaterThanOrEqualToConstant: frame.height / 10),
                 newStick.centerYAnchor.constraint(equalTo: stick.centerYAnchor)
+            
             ])
+            
+            NSLayoutConstraint.activate(rightStickConstraints.last!)
         }
         delegate?.setParametrs(newStick)
         setRightSupportConstraints()
@@ -143,9 +163,9 @@ extension ConstructionView {
         }
         NSLayoutConstraint.deactivate(rightSupportConstraints)
         rightSupportConstraints = [
-            rightSupport.rightAnchor.constraint(equalTo: stick.rightAnchor),
+            rightSupport.rightAnchor.constraint(equalTo: stick.rightAnchor, constant: -6),
             rightSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
-            rightSupport.heightAnchor.constraint(equalToConstant: 50)
+            rightSupport.heightAnchor.constraint(equalToConstant: 45)
         ]
         NSLayoutConstraint.activate(rightSupportConstraints)
     }

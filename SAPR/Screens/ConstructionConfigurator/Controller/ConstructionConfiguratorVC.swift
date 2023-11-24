@@ -10,6 +10,11 @@ import UIKit
 class ConstructionConfiguratorVC: UIViewController {
     
     var rodParametres = [RodParametres]()
+    var rodMaterials = [RodMaterial]() {
+        didSet {
+            constrictionParametresView?.materials = self.rodMaterials
+        }
+    }
     
     var supportParametres = SupportParametres(isLeftFixed: false, isRightFixed: false)
     
@@ -19,9 +24,12 @@ class ConstructionConfiguratorVC: UIViewController {
     
     var supportParametresView: SupportParametresView?
     
+    var materialsParametresView: MaterialsConfiguratorView?
+    
     var constructionConstraints = [NSLayoutConstraint]()
     var supportConstraints = [NSLayoutConstraint]()
-    
+    var materialsConstraints = [NSLayoutConstraint]()
+        
     var tapRecognizer: UITapGestureRecognizer?
     
     var segmentControl = UISegmentedControl()
@@ -32,15 +40,19 @@ class ConstructionConfiguratorVC: UIViewController {
         
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizerAction))
         view.addGestureRecognizer(tapRecognizer!)
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
+        materialsParametresView = MaterialsConfiguratorView(delegate: self, materials: rodMaterials)
+        
         constructionView = ConstructionView(CGSize(width: view.frame.width, height: 200))
         constructionView?.delegate = self
         
         supportParametresView = SupportParametresView(delegate: self, supportParametres: supportParametres, size: CGSize(width: view.frame.width, height: 200))
         supportParametresView?.isHidden = true
+        materialsParametresView?.isHidden = true
         
         constrictionParametresView = ConstructionParametersView(CGSize(width: view.frame.width, height: 200))
         constrictionParametresView?.delegate = self
@@ -73,12 +85,14 @@ class ConstructionConfiguratorVC: UIViewController {
     
 
     private func configureUI() {
+        materialsParametresView?.translatesAutoresizingMaskIntoConstraints = false
         constructionView?.translatesAutoresizingMaskIntoConstraints = false
         constrictionParametresView?.translatesAutoresizingMaskIntoConstraints = false
         supportParametresView?.translatesAutoresizingMaskIntoConstraints = false
-        segmentControl = UISegmentedControl()
+        
         segmentControl.insertSegment(withTitle: "Стержни", at: 0, animated: true)
         segmentControl.insertSegment(withTitle: "Узлы", at: 1, animated: true)
+        segmentControl.insertSegment(withTitle: "Материалы", at: 2, animated: true)
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(segmentControlAction), for: .valueChanged)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +101,12 @@ class ConstructionConfiguratorVC: UIViewController {
     
     
     @objc private func tapRecognizerAction() {
-        constrictionParametresView?.contentView.subviews.forEach({ $0.resignFirstResponder() })
+        constrictionParametresView?.subviews.forEach({ $0.resignFirstResponder() })
+        materialsParametresView?.tableView.subviews.forEach({ 
+            let cell = ($0 as? MaterialCell)
+            cell?.elasticModulusField.resignFirstResponder()
+            cell?.permissibleVoltageField.resignFirstResponder()
+        })
     }
     
     @objc private func segmentControlAction(_ sender: UISegmentedControl) {
@@ -114,19 +133,33 @@ extension ConstructionConfiguratorVC: ConstructionViewDelegate {
 
 
 extension ConstructionConfiguratorVC: ConstructionParametersDelegate {
+    func getAllMaterials() -> [RodMaterial] {
+        return rodMaterials
+    }
+    
+    func getAllParametres() -> [RodParametres] {
+        return rodParametres
+    }
+    
+    func deleteRod() {
+        rodParametres.removeLast()
+        constructionView?.deleteLastStick()
+    }
+    
+    func addStick() {
+        constructionView?.addStickTo(.right)
+    }
+    
     func getParametres(_ rodNumber: Int) -> RodParametres {
-        if rodParametres[rodNumber].copiedFrom != nil {
-            return rodParametres[rodParametres[rodNumber].copiedFrom!]
+        var num = rodNumber
+        if rodParametres[num].copiedFrom != nil {
+            num = rodParametres[num].copiedFrom!
         }
-        return rodParametres[rodNumber]
+        return rodParametres[num]
     }
     
     func setParametrs(_ number: Int, _ rodParameter: RodParametres) {
         self.rodParametres[number] = rodParameter
-    }
-    
-    func deleteRod(_ numer: Int) {
-        print("delete rod... in progress..")
     }
     
 }
@@ -138,7 +171,7 @@ extension ConstructionConfiguratorVC: ConstructionParametersDelegate {
 extension ConstructionConfiguratorVC {
     private func setConstraints() {
         
-        for subView in [constructionView!, constrictionParametresView!, segmentControl, supportParametresView!] {
+        for subView in [constructionView!, constrictionParametresView!, segmentControl, supportParametresView!, materialsParametresView!] {
             view.addSubview(subView)
         }
         
@@ -156,6 +189,13 @@ extension ConstructionConfiguratorVC {
             supportParametresView!.rightAnchor.constraint(equalTo: view.rightAnchor),
         ]
         
+        materialsConstraints = [
+            materialsParametresView!.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 20),
+            materialsParametresView!.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            materialsParametresView!.leftAnchor.constraint(equalTo: view.leftAnchor),
+            materialsParametresView!.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ]
+        
         NSLayoutConstraint.activate(constructionConstraints)
         NSLayoutConstraint.activate([
             
@@ -165,7 +205,7 @@ extension ConstructionConfiguratorVC {
             constructionView!.rightAnchor.constraint(equalTo: view.rightAnchor),
             
             segmentControl.topAnchor.constraint(equalTo: constructionView!.bottomAnchor),
-            segmentControl.heightAnchor.constraint(equalToConstant: 50),
+            segmentControl.heightAnchor.constraint(equalToConstant: 40),
             segmentControl.leftAnchor.constraint(equalTo: view.leftAnchor),
             segmentControl.rightAnchor.constraint(equalTo: view.rightAnchor)
             
@@ -174,19 +214,28 @@ extension ConstructionConfiguratorVC {
     }
     
     
-    // 0 - constrictionParametresView, 1 - supports
+    // 0 - constrictionParametresView, 1 - supports, 2 - materials
     private func configureConstraintsFor(_ num: Int) {
+        NSLayoutConstraint.deactivate(supportConstraints)
+        NSLayoutConstraint.deactivate(constructionConstraints)
+        NSLayoutConstraint.deactivate(materialsConstraints)
         if num == 0 {
-            NSLayoutConstraint.deactivate(supportConstraints)
             NSLayoutConstraint.activate(constructionConstraints)
             supportParametresView?.isHidden = true
+            materialsParametresView?.isHidden = true
             constrictionParametresView?.isHidden = false
             
-        } else {
-            NSLayoutConstraint.deactivate(constructionConstraints)
+        } else if num == 1 {
             NSLayoutConstraint.activate(supportConstraints)
             constrictionParametresView?.isHidden = true
+            materialsParametresView?.isHidden = true
             supportParametresView?.isHidden = false
+        } else if num == 2 {
+            NSLayoutConstraint.activate(materialsConstraints)
+            constrictionParametresView?.isHidden = true
+            supportParametresView?.isHidden = true
+            materialsParametresView?.isHidden = false
+
         }
     }
 }
@@ -198,4 +247,14 @@ extension ConstructionConfiguratorVC: SupportParametresViewDelegate {
         self.supportParametres = parametres
         constructionView?.configureSupports(self.supportParametres)
     }
+}
+
+
+
+extension ConstructionConfiguratorVC: MaterialConfiguratorDelegate {
+    
+    func setMaterials(materials: [RodMaterial]) {
+        self.rodMaterials = materials
+    }
+    
 }
