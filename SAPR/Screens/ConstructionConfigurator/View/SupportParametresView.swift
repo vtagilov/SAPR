@@ -15,9 +15,9 @@ protocol SupportParametresViewDelegate {
 
 class SupportParametresView: UIView {
     
-    var delegate: SupportParametresViewDelegate
+    var delegate: SupportParametresViewDelegate?
     
-    var supportParametres: SupportParametres
+    var supportParametres: SupportParametres?
     
     let leftLabel = UILabel()
     let rightLabel = UILabel()
@@ -25,6 +25,11 @@ class SupportParametresView: UIView {
     let leftButton = UIButton()
     let rightButton = UIButton()
     
+    init() {
+        super.init(frame: .zero)
+        configureUI()
+        setConstraints()
+    }
     
     init(delegate: SupportParametresViewDelegate, supportParametres: SupportParametres, size: CGSize) {
         self.delegate = delegate
@@ -60,11 +65,11 @@ class SupportParametresView: UIView {
     @objc private func buttonAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender == leftButton {
-            supportParametres.isLeftFixed = !supportParametres.isLeftFixed
+            supportParametres?.isLeftFixed = !supportParametres!.isLeftFixed
         } else if sender == rightButton {
-            supportParametres.isRightFixed = !supportParametres.isRightFixed
+            supportParametres?.isRightFixed = !supportParametres!.isRightFixed
         }
-        delegate.setParametrs(supportParametres)
+        delegate?.setParametrs(supportParametres!)
     }
 
     

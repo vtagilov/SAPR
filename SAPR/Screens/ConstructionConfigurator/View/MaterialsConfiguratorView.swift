@@ -15,11 +15,11 @@ protocol MaterialConfiguratorDelegate {
 
 class MaterialsConfiguratorView: UIView {
 
-    let delegate: MaterialConfiguratorDelegate
+    var delegate: MaterialConfiguratorDelegate?
     
     var materials = [RodMaterial]() {
         didSet {
-            delegate.setMaterials(materials: materials)
+            delegate?.setMaterials(materials: materials)
             tableView.reloadData()
         }
     }
@@ -31,7 +31,11 @@ class MaterialsConfiguratorView: UIView {
     var standartConstraints = [NSLayoutConstraint]()
     var tableViewConstraints = [NSLayoutConstraint]()
     
-    
+    init() {
+        super.init(frame: .zero)
+        configureUI()
+        setConstraints()
+    }
     
     init(delegate: MaterialConfiguratorDelegate, materials: [RodMaterial]) {
         self.delegate = delegate
@@ -64,7 +68,7 @@ class MaterialsConfiguratorView: UIView {
     
     @objc private func createButtonAction() {
         materials.append(RodMaterial(elasticModulus: 1.0, permissibleVoltage: 1.0))
-        delegate.setMaterials(materials: materials)
+        delegate?.setMaterials(materials: materials)
     }
     
     
@@ -125,7 +129,7 @@ extension MaterialsConfiguratorView: MaterialCellDelegate {
     }
     
     func showErrorAlert(message: String) {
-        delegate.showErrorAlert(message: message)
+        delegate?.showErrorAlert(message: message)
     }
     
 }

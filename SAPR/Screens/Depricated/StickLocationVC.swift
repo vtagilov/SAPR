@@ -113,7 +113,7 @@ extension StickLocationVC {
 // MARK: - StickLocationDelegate
 extension StickLocationVC: StickPrametersDelegate {
     
-    func setParameters(_ stick: UIStick) {
+    func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
         print("StickLocationVC: StickPrametersDelegate - setParameters")
     }
     

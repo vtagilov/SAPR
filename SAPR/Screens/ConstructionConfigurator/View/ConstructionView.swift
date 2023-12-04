@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ConstructionViewDelegate {
-    func setParametrs(_ rod: UIStick)
+    func rodWasSelected(_ rod: UIStick)
 }
 
 
@@ -32,11 +32,11 @@ class ConstructionView: UIView {
     var delegate: ConstructionViewDelegate?
     
     
-    
-    init(_ frame: CGSize) {
-        super.init(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+    init() {
+        super.init(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
         configureUI()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -87,7 +87,7 @@ class ConstructionView: UIView {
         NSLayoutConstraint.deactivate(rightStickConstraints.last!)
         rightStickConstraints.removeLast()
         setRightSupportConstraints()
-        delegate?.setParametrs(stick)
+        delegate?.rodWasSelected(stick)
     }
     
 }
@@ -112,8 +112,8 @@ extension ConstructionView {
             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             
-            stick.widthAnchor.constraint(greaterThanOrEqualToConstant: frame.width / 4),
-            stick.heightAnchor.constraint(greaterThanOrEqualToConstant: frame.height / 10),
+            stick.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            stick.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
             stick.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             stick.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
@@ -151,7 +151,7 @@ extension ConstructionView {
             
             NSLayoutConstraint.activate(rightStickConstraints.last!)
         }
-        delegate?.setParametrs(newStick)
+        delegate?.rodWasSelected(newStick)
         setRightSupportConstraints()
     }
     
@@ -179,9 +179,11 @@ extension ConstructionView {
 // MARK: - StickLocationDelegate
 extension ConstructionView: StickPrametersDelegate {
     
-    func setParameters(_ stick: UIStick) {
-        delegate?.setParametrs(stick)
+    @objc func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
+        delegate?.rodWasSelected(stick)
     }
+    
+    
     
     func addStickTo(_ direction: Direction) {
         var stick = stick

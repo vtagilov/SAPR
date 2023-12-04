@@ -10,7 +10,7 @@ import UIKit
 
 protocol StickPrametersDelegate {
     func addStickTo(_ direction: Direction)
-    func setParameters(_ stick: UIStick)
+    func setParameters(_ stick: UIStick, _ tapPoint: CGPoint)
 }
 
 
@@ -20,9 +20,13 @@ class UIStick: UIView {
     var rightStick: UIStick?
     var leftStick: UIStick?
     
+    var distributedLoad: DistributedLoad?
+    
     let stick = UIView()
     
     let numberLabel = UILabel()
+    
+    var delegate: StickPrametersDelegate?
     
     var number = 0 {
         didSet {
@@ -30,7 +34,6 @@ class UIStick: UIView {
         }
     }
     
-    var delegate: StickPrametersDelegate?
     
     
     init() {
@@ -44,15 +47,34 @@ class UIStick: UIView {
 
     
     
-    func configureUI() {
-        
+    @objc func nodeAction(_ sender: UIButton) {
+        delegate?.addStickTo(.right)
+    }
+    
+    @objc private func stickAction(_ gesture: UITapGestureRecognizer) {
+        let tapPoint = gesture.location(in: self)
+        delegate?.setParameters(self, tapPoint)
+    }
+    
+    
+    
+    func setDistributedLoad(direction: Direction) {
+        if distributedLoad != nil {
+            distributedLoad!.removeFromSuperview()
+            NSLayoutConstraint.deactivate(distributedLoad!.constraints)
+        }
+        distributedLoad = DistributedLoad(direction: direction)
+        distributedLoad?.translatesAutoresizingMaskIntoConstraints = false
+        setDistributedLoadConsraints()
+    }
+    
+    
+    
+    private func configureUI() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(stickAction))
         self.addGestureRecognizer(tapRecognizer)
         
-        stick.backgroundColor = .white
-        stick.layer.borderWidth = 2
-//        stick.layer.borderColor = UIColor.black.cgColor
-        stick.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.borderWidth = 2
         
         number = 0
         numberLabel.textColor = .black
@@ -61,36 +83,27 @@ class UIStick: UIView {
         setConstraints()
     }
     
-    
-    @objc func nodeAction(_ sender: UIButton) {
-        
-        delegate?.addStickTo(.right)
-    }
-    
-    
-    @objc private func stickAction() {
-        delegate?.setParameters(self)
-    }
-    
 }
 
 
 
 extension UIStick {
     private func setConstraints() {
-        
-        addSubview(stick)
         addSubview(numberLabel)
-        
         NSLayoutConstraint.activate([
-            stick.leftAnchor.constraint(equalTo: leftAnchor),
-            stick.rightAnchor.constraint(equalTo: rightAnchor),
-            stick.topAnchor.constraint(equalTo: topAnchor),
-            stick.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
             numberLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-        
+    }
+    
+    private func setDistributedLoadConsraints() {
+        addSubview(distributedLoad!)
+        distributedLoad!.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            distributedLoad!.leftAnchor.constraint(equalTo: leftAnchor),
+            distributedLoad!.rightAnchor.constraint(equalTo: rightAnchor),
+            distributedLoad!.topAnchor.constraint(equalTo: topAnchor),
+            distributedLoad!.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }

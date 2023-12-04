@@ -9,21 +9,139 @@ import UIKit
 
 class LoadsConfiguratorVC: UIViewController {
 
+    var constructionLoadsView = ConstructionLoadsView()
+    
+    let loadsConfiguratorView = LoadsConfiguratorView()
+    
+    var tapRecognizer = UITapGestureRecognizer()
+    
+    var focusedLoads = [Double]()
+    var distributedLoads = [Double]()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureUI()
+        setConstraints()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func configureUI() {
+        loadsConfiguratorView.delegate = self
+        constructionLoadsView.constructionLoadsViewDelegate = self
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizerAction))
+        view.addGestureRecognizer(tapRecognizer)
     }
-    */
+    
+    
+    
+    @objc private func tapRecognizerAction() {
+        loadsConfiguratorView.subviews.forEach({ $0.resignFirstResponder() })
+//        materialsParametresView.tableView.subviews.forEach({
+//            let cell = ($0 as? MaterialCell)
+//            cell?.elasticModulusField.resignFirstResponder()
+//            cell?.permissibleVoltageField.resignFirstResponder()
+//        })
+    }
+    
+    
+    
+    func presentNewAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 
 }
+
+
+
+extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
+    
+    func setPowerType(isFocused: Bool) {
+        constructionLoadsView.setPowerType(isFocused: isFocused)
+    }
+    
+    
+    func setParametres(focusedPower: Double) {
+        while constructionLoadsView.selectedNode >= focusedLoads.count {
+            focusedLoads.append(0.0)
+        }
+        print(constructionLoadsView.selectedNode, focusedPower)
+        focusedLoads[constructionLoadsView.selectedNode] = focusedPower
+        constructionLoadsView.setFocusedLoad(numOfNode: constructionLoadsView.selectedNode, power: focusedPower)
+    }
+    
+    
+    func setParametres(distributedPower: Double) {
+        while constructionLoadsView.selectedRod >= distributedLoads.count {
+            distributedLoads.append(0.0)
+        }
+        print(constructionLoadsView.selectedRod, distributedPower)
+        distributedLoads[constructionLoadsView.selectedRod] = distributedPower
+        constructionLoadsView.setDistributedLoad(numOfRod: constructionLoadsView.selectedRod, power: distributedPower)
+        print("setParameres(distributedPower")
+    }
+    
+    
+    func showErrorAlert(message: String) {
+        if let presentedViewController = presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                self.presentNewAlert(message: message)
+            }
+        } else {
+            presentNewAlert(message: message)
+        }
+    }
+    
+}
+
+
+extension LoadsConfiguratorVC: ConstructionLoadsViewDelegate {
+    
+    func rodWasSelected(numOfRod: Int) {
+        while constructionLoadsView.selectedNode >= distributedLoads.count {
+            distributedLoads.append(0.0)
+        }
+    }
+    
+    
+    func nodeWasSelected(numOfNode: Int, direction: Direction) {
+        while constructionLoadsView.selectedNode >= focusedLoads.count {
+            focusedLoads.append(0.0)
+        }
+        
+        loadsConfiguratorView.focusedPowerField.text = "\(focusedLoads[numOfNode])"
+        
+    }
+    
+    
+}
+
+
+
+
+// MARK: - Constraints
+extension LoadsConfiguratorVC {
+    private func setConstraints() {
+        
+        for subview in [constructionLoadsView, loadsConfiguratorView] {
+            view.addSubview(subview)
+            subview.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            constructionLoadsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            constructionLoadsView.heightAnchor.constraint(equalToConstant: 200),
+            constructionLoadsView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            constructionLoadsView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            loadsConfiguratorView.topAnchor.constraint(equalTo: constructionLoadsView.bottomAnchor),
+            loadsConfiguratorView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            loadsConfiguratorView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            loadsConfiguratorView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+}
+

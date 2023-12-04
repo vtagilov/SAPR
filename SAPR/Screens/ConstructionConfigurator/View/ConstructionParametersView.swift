@@ -9,12 +9,11 @@ import UIKit
 
 protocol ConstructionParametersDelegate {
     func setParametrs(_ number: Int, _ RodParameter: RodParametres)
-    func deleteRod()
-    func getParametres(_ rodNumber: Int) -> RodParametres
-    func showErrorAlert(message: String)
+    func deleteLastStick()
+    
     func addStick()
-    func getAllParametres() -> [RodParametres]
-    func getAllMaterials() -> [RodMaterial]
+    
+    func showErrorAlert(message: String)
 }
 
 class ConstructionParametersView: UIView {
@@ -46,13 +45,10 @@ class ConstructionParametersView: UIView {
     let materialLabel = UILabel()
     let materialPicker = UIPickerView()
     
-    
-    
-    init(_ size: CGSize) {
-        super.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+    init() {
+        super.init(frame: .zero)
         configureUI()
         setConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -68,6 +64,11 @@ class ConstructionParametersView: UIView {
         numberOfRod.text = "Стержень №\(currentRodNumber + 1)"
         lengthField.text = "\(rodParameter.length)"
         squareField.text = "\(rodParameter.square)"
+        guard let materialId = rodParameter.materialId else {
+            materialPicker.selectRow(0, inComponent: 0, animated: true)
+            return
+        }
+        materialPicker.selectRow(materialId + 1, inComponent: 0, animated: true)
     }
 
     
@@ -124,7 +125,7 @@ class ConstructionParametersView: UIView {
     @objc private func deleteButtonAction() {
         if rodCount > 1 {
             rodCount -= 1
-            delegate?.deleteRod()
+            delegate?.deleteLastStick()
         }
     }
     
@@ -134,9 +135,6 @@ class ConstructionParametersView: UIView {
         rodCount += 1
         delegate?.addStick()
     }
-    
-    
-
     
 }
 
@@ -186,7 +184,6 @@ extension ConstructionParametersView {
             materialPicker.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
             materialPicker.rightAnchor.constraint(equalTo: rightAnchor, constant: -10)
             
-            
         ])
     }
 }
@@ -194,6 +191,7 @@ extension ConstructionParametersView {
 
 
 extension ConstructionParametersView: UITextFieldDelegate {
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         var text = textField.text ?? ""
         text.removeAll(where: { $0 == " " })
@@ -230,27 +228,25 @@ extension ConstructionParametersView: UITextFieldDelegate {
         return true
     }
     
-    
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        scrollView.setContentOffset(CGPoint(x: 0, y: 500), animated: true)
-//        return true
-//    }
 }
 
 
 
 extension ConstructionParametersView: UIPickerViewDelegate, UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int { 1 }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return materials.count
+        return materials.count + 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row + 1)) E = \(materials[row].elasticModulus), σ = \(materials[row].permissibleVoltage)"
+        if row == 0 { return "Не выбрано" }
+        return "\(row)) E = \(materials[row - 1].elasticModulus), σ = \(materials[row - 1].permissibleVoltage)"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("selected \(row + 1)")
+        rodParameter?.materialId = row - 1
+        delegate?.setParametrs(currentRodNumber, rodParameter!)
     }
 }

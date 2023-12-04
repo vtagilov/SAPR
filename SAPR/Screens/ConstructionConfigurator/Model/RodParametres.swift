@@ -11,6 +11,5 @@ import Foundation
 struct RodParametres {
     var length: Double
     var square: Double
-    var material: RodMaterial
-    var copiedFrom: Int?
+    var materialId: Int?
 }

@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E73B11302B1DA44000475F3D /* DistributedLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B112F2B1DA44000475F3D /* DistributedLoad.swift */; };
 		E79AE1602B02249200291446 /* RodParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE15F2B02249200291446 /* RodParametres.swift */; };
 		E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1612B02562C00291446 /* ConstructionParametersView.swift */; };
 		E79AE1642B0633E700291446 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1632B0633E700291446 /* SupportView.swift */; };
 		E79AE1662B06376400291446 /* SupportParametresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1652B06376400291446 /* SupportParametresView.swift */; };
+		E7C6F7DE2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6F7DD2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift */; };
+		E7C6F7E02B14A85000B2BEF0 /* ConstructionLoadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6F7DF2B14A85000B2BEF0 /* ConstructionLoadsView.swift */; };
+		E7C6F7E22B14A92B00B2BEF0 /* FocusedLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6F7E12B14A92B00B2BEF0 /* FocusedLoad.swift */; };
 		E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */; };
 		E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */; };
 		E7D740FC2AF15D4B00F03C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D740FB2AF15D4B00F03C13 /* Assets.xcassets */; };
@@ -23,17 +27,20 @@
 		E7E3A8752B1100DB00CF1F82 /* LoadsConfiguratorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3A8742B1100DB00CF1F82 /* LoadsConfiguratorVC.swift */; };
 		E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9022AFAAEDB0078510E /* CustomNavigationController.swift */; };
 		E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */; };
-		E7FAE90C2AFAB01B0078510E /* StickConfiguratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */; };
 		E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */; };
 		E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */; };
 		E7FAE9122AFABFD80078510E /* StickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9112AFABFD80078510E /* StickView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E73B112F2B1DA44000475F3D /* DistributedLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributedLoad.swift; sourceTree = "<group>"; };
 		E79AE15F2B02249200291446 /* RodParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodParametres.swift; sourceTree = "<group>"; };
 		E79AE1612B02562C00291446 /* ConstructionParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionParametersView.swift; sourceTree = "<group>"; };
 		E79AE1632B0633E700291446 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		E79AE1652B06376400291446 /* SupportParametresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportParametresView.swift; sourceTree = "<group>"; };
+		E7C6F7DD2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadsConfiguratorView.swift; sourceTree = "<group>"; };
+		E7C6F7DF2B14A85000B2BEF0 /* ConstructionLoadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionLoadsView.swift; sourceTree = "<group>"; };
+		E7C6F7E12B14A92B00B2BEF0 /* FocusedLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedLoad.swift; sourceTree = "<group>"; };
 		E7D740EF2AF15D4A00F03C13 /* SAPR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAPR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +54,6 @@
 		E7E3A8742B1100DB00CF1F82 /* LoadsConfiguratorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadsConfiguratorVC.swift; sourceTree = "<group>"; };
 		E7FAE9022AFAAEDB0078510E /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionConfiguratorVC.swift; sourceTree = "<group>"; };
-		E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickConfiguratorViewController.swift; sourceTree = "<group>"; };
 		E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickLocationVC.swift; sourceTree = "<group>"; };
 		E7FAE9112AFABFD80078510E /* StickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickView.swift; sourceTree = "<group>"; };
@@ -169,6 +175,10 @@
 		E7E3A8722B1100AA00CF1F82 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E7C6F7DD2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift */,
+				E7C6F7DF2B14A85000B2BEF0 /* ConstructionLoadsView.swift */,
+				E7C6F7E12B14A92B00B2BEF0 /* FocusedLoad.swift */,
+				E73B112F2B1DA44000475F3D /* DistributedLoad.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,7 +206,6 @@
 				E7E3A8692B10FF1200CF1F82 /* Depricated */,
 				E7E3A8682B10FEDD00CF1F82 /* ConstructionConfigurator */,
 				E7FAE9082AFAAF1F0078510E /* LoadsConfigurator */,
-				E7FAE90B2AFAB01B0078510E /* StickConfiguratorViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -282,7 +291,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7E3A86E2B11003700CF1F82 /* RodMaterial.swift in Sources */,
-				E7FAE90C2AFAB01B0078510E /* StickConfiguratorViewController.swift in Sources */,
 				E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */,
 				E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */,
 				E7E3A8652B0E1B2D00CF1F82 /* MaterialsConfiguratorView.swift in Sources */,
@@ -291,12 +299,16 @@
 				E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */,
 				E79AE1642B0633E700291446 /* SupportView.swift in Sources */,
 				E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */,
+				E7C6F7DE2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift in Sources */,
 				E7FAE9122AFABFD80078510E /* StickView.swift in Sources */,
 				E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */,
+				E7C6F7E02B14A85000B2BEF0 /* ConstructionLoadsView.swift in Sources */,
 				E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */,
 				E7E3A8672B0E1C5C00CF1F82 /* MaterialCell.swift in Sources */,
+				E73B11302B1DA44000475F3D /* DistributedLoad.swift in Sources */,
 				E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */,
 				E7E3A8752B1100DB00CF1F82 /* LoadsConfiguratorVC.swift in Sources */,
+				E7C6F7E22B14A92B00B2BEF0 /* FocusedLoad.swift in Sources */,
 				E79AE1602B02249200291446 /* RodParametres.swift in Sources */,
 				E7E3A8702B11004C00CF1F82 /* SupportParametres.swift in Sources */,
 			);
