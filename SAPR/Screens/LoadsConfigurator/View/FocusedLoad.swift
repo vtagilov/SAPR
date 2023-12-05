@@ -19,6 +19,17 @@ class FocusedLoad: UIView {
         setConstraints()
     }
     
+    init(direction: Direction) {
+        super.init(frame: .zero)
+        configureUI()
+        setConstraints()
+        if direction == .right {
+            self.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        } else if direction == .left {
+            self.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

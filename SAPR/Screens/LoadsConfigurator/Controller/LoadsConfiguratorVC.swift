@@ -61,6 +61,11 @@ extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
     
     func setPowerType(isFocused: Bool) {
         constructionLoadsView.setPowerType(isFocused: isFocused)
+        if isFocused {
+            nodeWasSelected(numOfNode: 0, direction: .right)
+        } else {
+            rodWasSelected(numOfRod: 0)
+        }
     }
     
     
@@ -101,19 +106,20 @@ extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
 extension LoadsConfiguratorVC: ConstructionLoadsViewDelegate {
     
     func rodWasSelected(numOfRod: Int) {
-        while constructionLoadsView.selectedNode >= distributedLoads.count {
+        while numOfRod >= distributedLoads.count {
             distributedLoads.append(0.0)
         }
+        loadsConfiguratorView.distributedPowerField.text = "\(distributedLoads[numOfRod])"
+        loadsConfiguratorView.powerLabel.text = "Распределенная сила на стержне №\(numOfRod + 1)"
     }
     
     
     func nodeWasSelected(numOfNode: Int, direction: Direction) {
-        while constructionLoadsView.selectedNode >= focusedLoads.count {
+        while numOfNode >= focusedLoads.count {
             focusedLoads.append(0.0)
         }
-        
         loadsConfiguratorView.focusedPowerField.text = "\(focusedLoads[numOfNode])"
-        
+        loadsConfiguratorView.powerLabel.text = "Сосредоточенная сила на узле №\(numOfNode + 1)"
     }
     
     

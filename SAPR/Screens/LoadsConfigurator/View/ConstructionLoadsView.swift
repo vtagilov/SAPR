@@ -12,6 +12,7 @@ protocol ConstructionLoadsViewDelegate {
     func rodWasSelected(numOfRod: Int)
 }
 
+
 class ConstructionLoadsView: ConstructionView {
     
     var constructionLoadsViewDelegate: ConstructionLoadsViewDelegate?
@@ -19,23 +20,37 @@ class ConstructionLoadsView: ConstructionView {
     var focusedLoads = [FocusedLoad]()
     var distributedLoads = [DistributedLoad]()
     
-    var nodes = [UIView]()
-    
-    var nodeConstraints = [NSLayoutConstraint]()
-    
-    var selectedRod = 0
-    var selectedNode = 0
-    
     var isFocusedPower = true
     
+    var selectedNode = 0
+    var selectedRod = 0
     
     
-    override init() {
-        super.init()
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
+        let stickNum = stick.number
+        print("stickNum", stickNum)
+        if isFocusedPower {
+            selectedNode = tapPoint.x > 50 ? stickNum + 1 : stickNum
+            sticksHandler(handle: {
+                $0.rightNode.backgroundColor = .black
+                $0.leftNode.backgroundColor = .black
+            })
+            
+            if tapPoint.x > 50 {
+                stick.rightNode.backgroundColor = .red
+                stick.rightStick?.leftNode.backgroundColor = .red
+            } else if tapPoint.x < 50 {
+                stick.leftNode.backgroundColor = .red
+                getPreviousStick(stick: stick)?.rightNode.backgroundColor = .red
+            }
+            constructionLoadsViewDelegate?.nodeWasSelected(numOfNode: selectedNode, direction: tapPoint.x < 50 ? .left : .right)
+        } else {
+            selectedRod = stickNum
+            sticksHandler(handle: { $0.layer.borderColor = UIColor.black.cgColor })
+            stick.layer.borderColor = UIColor.red.cgColor
+            constructionLoadsViewDelegate?.rodWasSelected(numOfRod: selectedRod)
+        }
     }
     
     
@@ -43,13 +58,19 @@ class ConstructionLoadsView: ConstructionView {
     func setPowerType(isFocused: Bool) {
         isFocusedPower = isFocused
         if isFocused {
-            setNodePoints()
-            sticksHandler { stick in
-                stick.layer.borderColor = UIColor.black.cgColor
+            sticksHandler { 
+                $0.layer.borderColor = UIColor.black.cgColor
+                $0.leftNode.backgroundColor = .black
+                $0.rightNode.backgroundColor = .black
             }
-        } else {
-            removeNodePoints()
+            selectedNode = 0
+            stick.leftNode.backgroundColor = .red
+            setNodePoints()
             
+        } else {
+            selectedRod = 0
+            hideNodePoints()
+            stick.layer.borderColor = UIColor.red.cgColor
         }
     }
     
@@ -71,113 +92,52 @@ class ConstructionLoadsView: ConstructionView {
     
     
     func setDistributedLoad(numOfRod: Int, power: Double) {
-        if power == 0.0 { return }
-        
-        var currentStick = self.stick
-        var numOfRod = numOfRod
-        while numOfRod != 0 {
-            currentStick = currentStick.rightStick!
-            numOfRod -= 1
+        guard let currentStick = getStick(num: numOfRod) else {
+            return
+        }
+        if power == 0.0 {
+            currentStick.removeDistributedLoad()
+            return
         }
         currentStick.setDistributedLoad(direction: power > 0 ? .right : .left)
     }
     
     
     func setFocusedLoad(numOfNode: Int, power: Double) {
-        if power == 0.0 { return }
-        let focusedLoad = FocusedLoad()
-        focusedLoad.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(focusedLoad)
-        
-        while focusedLoads.count <= numOfNode { focusedLoads.append(FocusedLoad()) }
-        focusedLoads[numOfNode].removeFromSuperview()
-        focusedLoads[numOfNode] = focusedLoad
-        
-        var numOfNode = numOfNode
-        var stick = stick
+        var currentStick: UIStick
+        var node: Direction
         if numOfNode == 0 {
-            if power > 0 {
-                focusedLoad.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-                NSLayoutConstraint.activate([
-                    stick.leftAnchor.constraint(equalTo: focusedLoad.leftAnchor, constant: -10),
-                    stick.centerYAnchor.constraint(equalTo: focusedLoad.centerYAnchor)
-                ])
-            } else {
-                focusedLoad.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
-                NSLayoutConstraint.activate([
-                    stick.leftAnchor.constraint(equalTo: focusedLoad.leftAnchor, constant: 10),
-                    stick.centerYAnchor.constraint(equalTo: focusedLoad.centerYAnchor)
-                ])
-            }
+            currentStick = self.stick
+            node = .left
         } else {
-            numOfNode -= 1
-            while numOfNode != 0 {
-                stick = stick.rightStick!
-                numOfNode -= 1
+            guard getStick(num: numOfNode - 1) != nil else {
+                return
             }
-            
-            if power > 0 {
-                focusedLoad.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-                NSLayoutConstraint.activate([
-                    stick.rightAnchor.constraint(equalTo: focusedLoad.leftAnchor, constant: -10),
-                    stick.centerYAnchor.constraint(equalTo: focusedLoad.centerYAnchor)
-                ])
-            } else {
-                focusedLoad.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
-                NSLayoutConstraint.activate([
-                    stick.rightAnchor.constraint(equalTo: focusedLoad.leftAnchor, constant: 10),
-                    stick.centerYAnchor.constraint(equalTo: focusedLoad.centerYAnchor)
-                ])
-            }
+            currentStick = getStick(num: numOfNode - 1)!
+            node = .right
         }
-    }
-    
-    
-    func removeNodePoints() {
-        NSLayoutConstraint.deactivate(nodeConstraints)
-        nodeConstraints = []
-        nodes.forEach { $0.removeFromSuperview() }
-        nodes = []
+        if power == 0.0 {
+            currentStick.removeFocusedLoad(node: node)
+            return
+        }
+        let direction: Direction = power > 50 ? .right : .left
+        currentStick.setFocusedLoad(node: node, direction: direction)
     }
     
     
     func setNodePoints() {
-        var stick: UIStick? = stick
-        removeNodePoints()
-        while stick != nil {
-            let node = UIView()
-            nodes.append(node)
-            node.layer.cornerRadius = 8
-            node.backgroundColor = .black
-            
-            nodeConstraints.append(node.centerYAnchor.constraint(equalTo: stick!.centerYAnchor))
-            nodeConstraints.append(node.centerXAnchor.constraint(equalTo: stick!.leftAnchor))
-            nodeConstraints.append(node.widthAnchor.constraint(equalToConstant: 16))
-            nodeConstraints.append(node.heightAnchor.constraint(equalToConstant: 16))
-            addSubview(node)
-            node.translatesAutoresizingMaskIntoConstraints = false
-            if stick!.rightStick == nil {
-                break
-            }
-            stick = stick!.rightStick
-            
-        }
-        
-        let node = UIView()
-        nodes.append(node)
-        node.layer.cornerRadius = 8
-        node.backgroundColor = .black
-        
-        nodeConstraints.append(node.centerYAnchor.constraint(equalTo: stick!.centerYAnchor))
-        nodeConstraints.append(node.centerXAnchor.constraint(equalTo: stick!.rightAnchor))
-        nodeConstraints.append(node.widthAnchor.constraint(equalToConstant: 16))
-        nodeConstraints.append(node.heightAnchor.constraint(equalToConstant: 16))
-        addSubview(node)
-        node.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate(nodeConstraints)
-        
-        nodes[0].backgroundColor = .red
+        sticksHandler(handle: { 
+            $0.rightNode.isHidden = false
+            $0.leftNode.isHidden = false
+        })
+    }
+    
+    
+    func hideNodePoints() {
+        sticksHandler(handle: {
+            $0.rightNode.isHidden = true
+            $0.leftNode.isHidden = true
+        })
     }
     
     
@@ -192,28 +152,37 @@ class ConstructionLoadsView: ConstructionView {
     }
     
     
-    private func getStickNum(stick: UIStick) -> Int {
-        var c = 0
+    private func getStick(num: Int) -> UIStick? {
         var currentStick = self.stick
-        while currentStick != stick {
-            c += 1
+        while currentStick.number != num && currentStick.rightStick != nil {
             currentStick = currentStick.rightStick!
         }
-        return c
-    }
-    
-    
-    override func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
-        let stickNum = getStickNum(stick: stick)
-        if isFocusedPower {
-            selectedNode = tapPoint.x > 50 ? stickNum + 1 : stickNum
-            nodes.forEach({$0.backgroundColor = .black})
-            nodes[selectedNode].backgroundColor = .red
-            constructionLoadsViewDelegate?.nodeWasSelected(numOfNode: selectedNode, direction: tapPoint.x < 50 ? .left : .right)
-        } else {
-            sticksHandler(handle: { $0.layer.borderColor = UIColor.black.cgColor })
-            stick.layer.borderColor = UIColor.red.cgColor
-            constructionLoadsViewDelegate?.rodWasSelected(numOfRod: selectedNode)
+        if currentStick.number == num {
+            return currentStick
         }
+        return nil
     }
+    
+    
+    private func getPreviousStick(stick: UIStick) -> UIStick? {
+        var currentStick = self.stick
+        while currentStick.rightStick != stick && currentStick.rightStick != nil {
+            currentStick = currentStick.rightStick!
+        }
+        if currentStick.rightStick == stick {
+            return currentStick
+        }
+        return nil
+    }
+    
+    
+    private func findStick(_ handle: (UIStick) -> Bool) -> UIStick? {
+        var currentRod = self.stick
+        while handle(currentRod) && currentRod.rightStick != nil {
+            currentRod = currentRod.rightStick!
+        }
+        if handle(currentRod) { return currentRod }
+        return nil
+    }
+
 }

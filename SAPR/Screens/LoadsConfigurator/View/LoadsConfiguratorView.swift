@@ -29,11 +29,7 @@ class LoadsConfiguratorView: UIView {
     let focusedPowerField = UITextField()
     let distributedPowerField = UITextField()
     
-    let distributedPowerLabel = UILabel()
-    let focusedPowerLabel = UILabel()
-    
-    let createButton = UIButton()
-    let deleteButton = UIButton()
+    let powerLabel = UILabel()
     
     
     
@@ -44,48 +40,6 @@ class LoadsConfiguratorView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-
-    private func configureUI() {
-        
-        deleteButton.setTitle("Удалить", for: .normal)
-        deleteButton.titleLabel?.textAlignment = .right
-        deleteButton.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
-        deleteButton.setTitleColor(.systemBlue, for: .normal)
-        deleteButton.setTitleColor(.lightGray, for: .highlighted)
-        
-        createButton.setTitle("Добавить", for: .normal)
-        createButton.titleLabel?.textAlignment = .left
-        createButton.addTarget(self, action: #selector(createButtonAction), for: .touchUpInside)
-        createButton.setTitleColor(.systemBlue, for: .normal)
-        createButton.setTitleColor(.lightGray, for: .highlighted)
-        
-        
-        loadsTypeSegmentControl.insertSegment(withTitle: "Сосредоточенные", at: 0, animated: false)
-        loadsTypeSegmentControl.insertSegment(withTitle: "Распределенные", at: 1, animated: false)
-        loadsTypeSegmentControl.addTarget(self, action: #selector(segmentControlValueChanged), for: .valueChanged)
-        
-        
-        distributedPowerLabel.text = "cила "
-        focusedPowerLabel.text = "сила "
-        
-        for textField in [distributedPowerField, focusedPowerField] {
-//            textField.keyboardType = .decimalPad
-//            textField.returnKeyType = .done
-            textField.text = "1.0"
-            textField.font = .systemFont(ofSize: 24)
-            textField.textAlignment = .center
-            textField.backgroundColor = .darkGray
-            textField.layer.cornerRadius = 5
-            textField.delegate = self
-        }
-        
-        setConstraints()
-        
-        loadsTypeSegmentControl.selectedSegmentIndex = 0
-        segmentControlValueChanged()
     }
     
     
@@ -107,14 +61,29 @@ class LoadsConfiguratorView: UIView {
     }
     
     
-    @objc private func createButtonAction() {
-//        delegate?.loadsConfiguratorView(segmentControl: sender)
-    }
     
-    @objc private func deleteButtonAction() {
-//        delegate?.loadsConfiguratorView(segmentControl: sender)
+    private func configureUI() {
+        loadsTypeSegmentControl.insertSegment(withTitle: "Сосредоточенные", at: 0, animated: false)
+        loadsTypeSegmentControl.insertSegment(withTitle: "Распределенные", at: 1, animated: false)
+        loadsTypeSegmentControl.addTarget(self, action: #selector(segmentControlValueChanged), for: .valueChanged)
+        
+        
+        powerLabel.text = "Сосредоточенная сила на узле №1"
+        
+        for textField in [distributedPowerField, focusedPowerField] {
+            textField.text = "0.0"
+            textField.font = .systemFont(ofSize: 24)
+            textField.textAlignment = .center
+            textField.backgroundColor = .darkGray
+            textField.layer.cornerRadius = 5
+            textField.delegate = self
+        }
+        
+        setConstraints()
+        
+        loadsTypeSegmentControl.selectedSegmentIndex = 0
+        segmentControlValueChanged()
     }
-    
 }
 
 
@@ -165,7 +134,7 @@ extension LoadsConfiguratorView: UITextFieldDelegate {
 extension LoadsConfiguratorView {
     private func setConstraints() {
         
-        for subview in [loadsTypeSegmentControl, deleteButton, createButton, focusedPowerLabel, focusedPowerField, distributedPowerField] {
+        for subview in [loadsTypeSegmentControl, powerLabel, focusedPowerField, distributedPowerField] {
             subview.translatesAutoresizingMaskIntoConstraints = false
             addSubview(subview)
         }
@@ -177,25 +146,19 @@ extension LoadsConfiguratorView {
             loadsTypeSegmentControl.leftAnchor.constraint(equalTo: leftAnchor),
             loadsTypeSegmentControl.rightAnchor.constraint(equalTo: rightAnchor),
             
-            deleteButton.topAnchor.constraint(equalTo: loadsTypeSegmentControl.bottomAnchor, constant: 10),
-            deleteButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            
-            createButton.topAnchor.constraint(equalTo: loadsTypeSegmentControl.bottomAnchor, constant: 10),
-            createButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
-            
-            focusedPowerLabel.topAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: 30),
-            focusedPowerLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            powerLabel.topAnchor.constraint(equalTo: loadsTypeSegmentControl.bottomAnchor, constant: 100),
+            powerLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
             
         ])
         
         focusedLoadsConstraints = [
-            focusedPowerField.topAnchor.constraint(equalTo: focusedPowerLabel.bottomAnchor, constant: 30),
+            focusedPowerField.topAnchor.constraint(equalTo: powerLabel.bottomAnchor, constant: 30),
             focusedPowerField.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
             focusedPowerField.rightAnchor.constraint(equalTo: rightAnchor, constant: 10)
         ]
         
         distributedLoadsConstraints = [
-            distributedPowerField.topAnchor.constraint(equalTo: focusedPowerLabel.bottomAnchor, constant: 30),
+            distributedPowerField.topAnchor.constraint(equalTo: powerLabel.bottomAnchor, constant: 30),
             distributedPowerField.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
             distributedPowerField.rightAnchor.constraint(equalTo: rightAnchor, constant: 10)
         ]
