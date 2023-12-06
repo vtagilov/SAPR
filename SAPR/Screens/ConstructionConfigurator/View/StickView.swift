@@ -63,17 +63,6 @@ class UIStick: UIView {
     
     
     
-//    func setFocusedLoad() {
-//        if focusedLoad != nil {
-//            distributedLoad!.removeFromSuperview()
-//            NSLayoutConstraint.deactivate(distributedLoad!.constraints)
-//        }
-//        distributedLoad = DistributedLoad(direction: direction)
-//        distributedLoad?.translatesAutoresizingMaskIntoConstraints = false
-//        setDistributedLoadConsraints()
-//    }
-    
-    
     func setDistributedLoad(direction: Direction) {
         removeDistributedLoad()
         distributedLoad = DistributedLoad(direction: direction)

@@ -95,7 +95,6 @@ extension MaterialsConfiguratorView: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        print(indexPath)
         return indexPath
     }
     
@@ -104,26 +103,6 @@ extension MaterialsConfiguratorView: UITableViewDataSource, UITableViewDelegate 
 
 
 extension MaterialsConfiguratorView: MaterialCellDelegate {
-    func endTyping() {
-        
-//        tableView.isScrollEnabled = true
-//        NSLayoutConstraint.deactivate(tableViewConstraints)
-//        NSLayoutConstraint.activate(standartConstraints)
-    }
-    
-    func startTyping(index: Int) {
-        print("startTyping at index", index)
-        
-//        NSLayoutConstraint.deactivate(standartConstraints)
-//        NSLayoutConstraint.activate(tableViewConstraints)
-        
-//        tableView.isScrollEnabled = false
-//        tableView.contentOffset = CGPoint(x: 0, y: 200)
-//        tableView.scrollToRow(at: IndexPath(row: index - 1, section: 0), at: .top, animated: true)
-        
-    }
-    
-    
     func updateMaterial(id: Int, material: RodMaterial) {
         materials[id] = material
     }

@@ -11,8 +11,6 @@ import UIKit
 protocol MaterialCellDelegate {
     func updateMaterial(id: Int, material: RodMaterial)
     func showErrorAlert(message: String)
-    func startTyping(index: Int)
-    func endTyping()
 }
 
 
@@ -108,7 +106,6 @@ extension MaterialCell: UITextFieldDelegate {
             break
         }
         delegate?.updateMaterial(id: Int(numLabel.text!)! - 1, material: material!)
-        delegate?.endTyping()
     }
     
     
@@ -120,7 +117,6 @@ extension MaterialCell: UITextFieldDelegate {
     
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        delegate?.startTyping(index: Int(numLabel.text!)!)
         return true
     }
     

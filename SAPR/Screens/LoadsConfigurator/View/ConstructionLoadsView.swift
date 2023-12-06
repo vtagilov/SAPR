@@ -29,7 +29,6 @@ class ConstructionLoadsView: ConstructionView {
     
     override func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
         let stickNum = stick.number
-        print("stickNum", stickNum)
         if isFocusedPower {
             selectedNode = tapPoint.x > 50 ? stickNum + 1 : stickNum
             sticksHandler(handle: {
@@ -120,7 +119,7 @@ class ConstructionLoadsView: ConstructionView {
             currentStick.removeFocusedLoad(node: node)
             return
         }
-        let direction: Direction = power > 50 ? .right : .left
+        let direction: Direction = power > 0 ? .right : .left
         currentStick.setFocusedLoad(node: node, direction: direction)
     }
     

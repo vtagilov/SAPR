@@ -17,7 +17,7 @@ class SupportParametresView: UIView {
     
     var delegate: SupportParametresViewDelegate?
     
-    var supportParametres: SupportParametres?
+    var supportParametres = SupportParametres(isLeftFixed: false, isRightFixed: false)
     
     let leftLabel = UILabel()
     let rightLabel = UILabel()
@@ -46,8 +46,8 @@ class SupportParametresView: UIView {
 
     
     private func configureUI() {
-        leftLabel.text = "Закрепить констркцию слева"
-        rightLabel.text = "Закрепить констркцию справа"
+        leftLabel.text = "Закрепить конструкцию слева"
+        rightLabel.text = "Закрепить конструкцию справа"
         
         for button in [leftButton, rightButton] {
             button.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
@@ -65,11 +65,11 @@ class SupportParametresView: UIView {
     @objc private func buttonAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender == leftButton {
-            supportParametres?.isLeftFixed = !supportParametres!.isLeftFixed
+            supportParametres.isLeftFixed = !supportParametres.isLeftFixed
         } else if sender == rightButton {
-            supportParametres?.isRightFixed = !supportParametres!.isRightFixed
+            supportParametres.isRightFixed = !supportParametres.isRightFixed
         }
-        delegate?.setParametrs(supportParametres!)
+        delegate?.setParametrs(supportParametres)
     }
 
     

@@ -196,13 +196,6 @@ extension ConstructionParametersView: UITextFieldDelegate {
         var text = textField.text ?? ""
         text.removeAll(where: { $0 == " " })
         
-        if (text.rangeOfCharacter(from: CharacterSet.letters.union(.whitespaces)) != nil) {
-            delegate?.showErrorAlert(message: "Только чила и точка")
-            textField.becomeFirstResponder()
-            return
-            
-        }
-        
         let index = text.firstIndex(where: { $0 == ","})
         if index != nil {
             text.remove(at: index!)
@@ -210,11 +203,17 @@ extension ConstructionParametersView: UITextFieldDelegate {
         }
         textField.text = text
         
+        guard let num = Double(text) else {
+            delegate?.showErrorAlert(message: "Только чила и точка")
+            textField.becomeFirstResponder()
+            return
+        }
+        
         switch textField {
         case lengthField:
-            rodParameter?.length = Double((lengthField.text ?? "")) ?? 0.0
+            rodParameter?.length = num
         case squareField:
-            rodParameter?.square = Double((squareField.text ?? "")) ?? 0.0
+            rodParameter?.square = num
         default:
             break
         }

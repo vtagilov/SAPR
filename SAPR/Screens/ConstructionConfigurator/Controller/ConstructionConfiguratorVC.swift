@@ -29,6 +29,7 @@ class ConstructionConfiguratorVC: UIViewController {
     
     var segmentControl = UISegmentedControl()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,14 +53,8 @@ class ConstructionConfiguratorVC: UIViewController {
         setConstraints()
         
         constructionView.delegate?.rodWasSelected(constructionView.stick)
-        
-        
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
     
     
     func showErrorAlert(message: String) {
@@ -162,7 +157,6 @@ extension ConstructionConfiguratorVC: SupportParametresViewDelegate {
 
 
 extension ConstructionConfiguratorVC: MaterialConfiguratorDelegate {
-    
     func setMaterials(materials: [RodMaterial]) {
         self.rodMaterials = materials
     }
@@ -239,7 +233,6 @@ extension ConstructionConfiguratorVC {
             constrictionParametresView.isHidden = true
             supportParametresView.isHidden = true
             materialsParametresView.isHidden = false
-
         }
     }
 }

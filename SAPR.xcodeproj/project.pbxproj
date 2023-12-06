@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E73B11302B1DA44000475F3D /* DistributedLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B112F2B1DA44000475F3D /* DistributedLoad.swift */; };
+		E73B11322B1F1B4700475F3D /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11312B1F1B4700475F3D /* Direction.swift */; };
 		E79AE1602B02249200291446 /* RodParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE15F2B02249200291446 /* RodParametres.swift */; };
 		E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1612B02562C00291446 /* ConstructionParametersView.swift */; };
 		E79AE1642B0633E700291446 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1632B0633E700291446 /* SupportView.swift */; };
@@ -28,12 +29,12 @@
 		E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9022AFAAEDB0078510E /* CustomNavigationController.swift */; };
 		E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */; };
 		E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */; };
-		E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */; };
 		E7FAE9122AFABFD80078510E /* StickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FAE9112AFABFD80078510E /* StickView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E73B112F2B1DA44000475F3D /* DistributedLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributedLoad.swift; sourceTree = "<group>"; };
+		E73B11312B1F1B4700475F3D /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		E79AE15F2B02249200291446 /* RodParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodParametres.swift; sourceTree = "<group>"; };
 		E79AE1612B02562C00291446 /* ConstructionParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionParametersView.swift; sourceTree = "<group>"; };
 		E79AE1632B0633E700291446 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 		E7FAE9022AFAAEDB0078510E /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionConfiguratorVC.swift; sourceTree = "<group>"; };
 		E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
-		E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickLocationVC.swift; sourceTree = "<group>"; };
 		E7FAE9112AFABFD80078510E /* StickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +70,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E73B11332B1F225C00475F3D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E7D740E62AF15D4A00F03C13 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +100,7 @@
 				E7D7410B2AF17D9500F03C13 /* Recourses */,
 				E7FAE9052AFAAEEC0078510E /* Screens */,
 				E7FAE9042AFAAEDF0078510E /* Navigation */,
+				E73B11332B1F225C00475F3D /* Extensions */,
 			);
 			path = SAPR;
 			sourceTree = "<group>";
@@ -125,14 +133,6 @@
 			path = ConstructionConfigurator;
 			sourceTree = "<group>";
 		};
-		E7E3A8692B10FF1200CF1F82 /* Depricated */ = {
-			isa = PBXGroup;
-			children = (
-				E7FAE90F2AFABFAB0078510E /* StickLocationVC.swift */,
-			);
-			path = Depricated;
-			sourceTree = "<group>";
-		};
 		E7E3A86A2B10FF5C00CF1F82 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +161,7 @@
 				E79AE15F2B02249200291446 /* RodParametres.swift */,
 				E7E3A86D2B11003700CF1F82 /* RodMaterial.swift */,
 				E7E3A86F2B11004C00CF1F82 /* SupportParametres.swift */,
+				E73B11312B1F1B4700475F3D /* Direction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,7 +204,6 @@
 		E7FAE9052AFAAEEC0078510E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				E7E3A8692B10FF1200CF1F82 /* Depricated */,
 				E7E3A8682B10FEDD00CF1F82 /* ConstructionConfigurator */,
 				E7FAE9082AFAAF1F0078510E /* LoadsConfigurator */,
 			);
@@ -298,13 +298,13 @@
 				E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */,
 				E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */,
 				E79AE1642B0633E700291446 /* SupportView.swift in Sources */,
-				E7FAE9102AFABFAB0078510E /* StickLocationVC.swift in Sources */,
 				E7C6F7DE2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift in Sources */,
 				E7FAE9122AFABFD80078510E /* StickView.swift in Sources */,
 				E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */,
 				E7C6F7E02B14A85000B2BEF0 /* ConstructionLoadsView.swift in Sources */,
 				E7FAE90A2AFAAF5F0078510E /* ConstructionConfiguratorVC.swift in Sources */,
 				E7E3A8672B0E1C5C00CF1F82 /* MaterialCell.swift in Sources */,
+				E73B11322B1F1B4700475F3D /* Direction.swift in Sources */,
 				E73B11302B1DA44000475F3D /* DistributedLoad.swift in Sources */,
 				E7FAE90E2AFAB2D40078510E /* CustomTabBarController.swift in Sources */,
 				E7E3A8752B1100DB00CF1F82 /* LoadsConfiguratorVC.swift in Sources */,

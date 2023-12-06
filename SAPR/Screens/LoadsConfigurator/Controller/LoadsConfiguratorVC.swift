@@ -73,7 +73,6 @@ extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
         while constructionLoadsView.selectedNode >= focusedLoads.count {
             focusedLoads.append(0.0)
         }
-        print(constructionLoadsView.selectedNode, focusedPower)
         focusedLoads[constructionLoadsView.selectedNode] = focusedPower
         constructionLoadsView.setFocusedLoad(numOfNode: constructionLoadsView.selectedNode, power: focusedPower)
     }
@@ -83,10 +82,8 @@ extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
         while constructionLoadsView.selectedRod >= distributedLoads.count {
             distributedLoads.append(0.0)
         }
-        print(constructionLoadsView.selectedRod, distributedPower)
         distributedLoads[constructionLoadsView.selectedRod] = distributedPower
         constructionLoadsView.setDistributedLoad(numOfRod: constructionLoadsView.selectedRod, power: distributedPower)
-        print("setParameres(distributedPower")
     }
     
     

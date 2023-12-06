@@ -15,12 +15,6 @@ enum Direction {
 
 
 
-protocol StickLocationDelegate {
-    func addStickTo(_ direction: Direction)
-    func setParameters(_ stick: UIStick)
-}
-
-
 
 class StickLocationVC: UIViewController {
 
@@ -39,7 +33,6 @@ class StickLocationVC: UIViewController {
     
     private func configureUI() {
         
-        stick.delegate = self
         stick.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
@@ -109,82 +102,3 @@ extension StickLocationVC {
 }
 
 
-
-// MARK: - StickLocationDelegate
-extension StickLocationVC: StickPrametersDelegate {
-    
-    func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
-        print("StickLocationVC: StickPrametersDelegate - setParameters")
-    }
-    
-    
-    func addStickTo(_ direction: Direction) {
-        var stick = stick
-        let newStick = UIStick()
-        newStick.translatesAutoresizingMaskIntoConstraints = false
-        newStick.delegate = self
-        
-        if direction == .left {
-            while stick.leftStick != nil {
-                stick = stick.leftStick!
-            }
-            let newStick = UIStick()
-            stick.leftStick = newStick
-            
-        }
-        if direction == .right {
-            while stick.rightStick != nil {
-                stick = stick.rightStick!
-            }
-            
-            stick.rightStick = newStick
-            
-        }
-        getStickLocationInAlert()
-        contentView.addSubview(newStick)
-        addConstraintsToNewStick(from: stick, to: newStick, direction: direction)
-    }
-    
-    
-    private func getStickLocationInAlert() {
-        let alertController = UIAlertController(title: "Введите значения", message: nil, preferredStyle: .alert)
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "по X"
-            textField.keyboardType = .numbersAndPunctuation
-        }
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "по Y"
-            textField.keyboardType = .numbersAndPunctuation
-        }
-        
-        
-        let submitAction = UIAlertAction(title: "Готово", style: .default) { (_) in
-            guard let textField1 = alertController.textFields?[0],
-                  let textField2 = alertController.textFields?[1],
-                  let value1 = textField1.text,
-                  let value2 = textField2.text else {
-                return
-            }
-            
-            
-            print("Значение 1: \(value1)")
-            print("Значение 2: \(value2)")
-        }
-        
-        alertController.addAction(submitAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-}
-
-
-
-// MARK: - UIScrollViewDelegate
-//extension StickLocationVC: UIScrollViewDelegate {
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        return contentView
-//    }
-//}

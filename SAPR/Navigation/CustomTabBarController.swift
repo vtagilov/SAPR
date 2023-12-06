@@ -13,13 +13,13 @@ class CustomTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewControllers = [ConstructionConfiguratorVC(), LoadsConfiguratorVC(), StickLocationVC()]
+        self.viewControllers = [ConstructionConfiguratorVC(), LoadsConfiguratorVC()]
         viewControllers?[0].title = "Конструкция"
         viewControllers?[1].title = "Нагрузки"
         
         tabBar.items![0].image = UIImage(systemName: "smallcircle.filled.circle")
         tabBar.items![1].image = UIImage(systemName: "plus.circle")!.withRenderingMode(.automatic)
-        tabBar.items![2].image = UIImage(systemName: "location")!.withRenderingMode(.automatic)
+//        tabBar.items![2].image = UIImage(systemName: "location")!.withRenderingMode(.automatic)
         self.delegate = self
     }
     
