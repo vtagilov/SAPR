@@ -22,11 +22,9 @@ class ConstructionView: UIView {
     
     let scrollView = UIScrollView()
     let contentView = UIView()
-    
+        
     var standartConstraints = [NSLayoutConstraint]()
-    
     var rightStickConstraints = [[NSLayoutConstraint]()]
-    
     var rightSupportConstraints = [NSLayoutConstraint]()
         
     var delegate: ConstructionViewDelegate?
@@ -36,7 +34,6 @@ class ConstructionView: UIView {
         super.init(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
         configureUI()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -49,7 +46,7 @@ class ConstructionView: UIView {
         stick.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
-        scrollView.contentSize = CGSize(width: frame.width, height: 200)
+        scrollView.contentSize = CGSize(width: frame.width, height: 150)
         scrollView.minimumZoomScale = 0.5
         scrollView.maximumZoomScale = 5.0
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,89 +90,6 @@ class ConstructionView: UIView {
 }
 
 
-
-
-
-// MARK: - Constraints
-extension ConstructionView {
-    private func setConstraints() {
-        
-        addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(stick)
-        contentView.addSubview(leftSupport)
-        contentView.addSubview(rightSupport)
-        
-        standartConstraints = [
-            contentView.widthAnchor.constraint(greaterThanOrEqualToConstant: 5000),
-            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200),
-            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            
-            stick.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-            stick.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
-            stick.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            stick.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
-            leftSupport.rightAnchor.constraint(equalTo: stick.leftAnchor, constant: 6),
-            leftSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
-            leftSupport.heightAnchor.constraint(equalToConstant: 45)
-        ]
-        
-        NSLayoutConstraint.activate(standartConstraints)
-        
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-    }
-    
-    private func addConstraintsToNewStick(from stick: UIStick, to newStick: UIStick, direction: Direction) {
-        
-        newStick.number = stick.number + 1
-        contentView.addSubview(newStick)
-        scrollView.contentSize.width += frame.width / 4 - 25
-        if direction == .left {
-            
-        } else if direction == .right {
-            
-            rightStickConstraints.append([
-                newStick.leftAnchor.constraint(equalTo: stick.rightAnchor, constant: -2),
-                newStick.widthAnchor.constraint(greaterThanOrEqualToConstant: frame.width / 4),
-                newStick.heightAnchor.constraint(greaterThanOrEqualToConstant: frame.height / 10),
-                newStick.centerYAnchor.constraint(equalTo: stick.centerYAnchor)
-            
-            ])
-            
-            NSLayoutConstraint.activate(rightStickConstraints.last!)
-        }
-        delegate?.rodWasSelected(newStick)
-        setRightSupportConstraints()
-    }
-    
-    
-    private func setRightSupportConstraints() {
-        var stick = self.stick
-        while stick.rightStick != nil {
-            stick = stick.rightStick!
-        }
-        NSLayoutConstraint.deactivate(rightSupportConstraints)
-        rightSupportConstraints = [
-            rightSupport.rightAnchor.constraint(equalTo: stick.rightAnchor, constant: -6),
-            rightSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
-            rightSupport.heightAnchor.constraint(equalToConstant: 45)
-        ]
-        NSLayoutConstraint.activate(rightSupportConstraints)
-    }
-    
-    
-    
-}
-
-
-
 // MARK: - StickLocationDelegate
 extension ConstructionView: StickPrametersDelegate {
     
@@ -212,15 +126,80 @@ extension ConstructionView: StickPrametersDelegate {
         addConstraintsToNewStick(from: stick, to: newStick, direction: direction)
     }
     
-    
-    
 }
 
 
-
-// MARK: - UIScrollViewDelegate
-//extension ConstructionView: UIScrollViewDelegate {
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        return contentView
-//    }
-//}
+// MARK: - Constraints
+extension ConstructionView {
+    private func setConstraints() {
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(stick)
+        contentView.addSubview(leftSupport)
+        contentView.addSubview(rightSupport)
+        
+        standartConstraints = [
+            contentView.widthAnchor.constraint(greaterThanOrEqualToConstant: 5000),
+            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            
+            stick.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            stick.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+            stick.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            stick.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            leftSupport.rightAnchor.constraint(equalTo: stick.leftAnchor, constant: 6),
+            leftSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
+            leftSupport.heightAnchor.constraint(equalToConstant: 45)
+        ]
+        
+        NSLayoutConstraint.activate(standartConstraints)
+        
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+    
+    
+    private func addConstraintsToNewStick(from stick: UIStick, to newStick: UIStick, direction: Direction) {
+        newStick.number = stick.number + 1
+        contentView.addSubview(newStick)
+        scrollView.contentSize.width += frame.width / 4 - 25
+        if direction == .left {
+            
+        } else if direction == .right {
+            
+            rightStickConstraints.append([
+                newStick.leftAnchor.constraint(equalTo: stick.rightAnchor, constant: -2),
+                newStick.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+                newStick.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+                newStick.centerYAnchor.constraint(equalTo: stick.centerYAnchor)
+            
+            ])
+            
+            NSLayoutConstraint.activate(rightStickConstraints.last!)
+        }
+        delegate?.rodWasSelected(newStick)
+        setRightSupportConstraints()
+    }
+    
+    
+    private func setRightSupportConstraints() {
+        var stick = self.stick
+        while stick.rightStick != nil {
+            stick = stick.rightStick!
+        }
+        NSLayoutConstraint.deactivate(rightSupportConstraints)
+        rightSupportConstraints = [
+            rightSupport.rightAnchor.constraint(equalTo: stick.rightAnchor, constant: -6),
+            rightSupport.centerYAnchor.constraint(equalTo: stick.centerYAnchor),
+            rightSupport.heightAnchor.constraint(equalToConstant: 45)
+        ]
+        NSLayoutConstraint.activate(rightSupportConstraints)
+    }
+    
+}

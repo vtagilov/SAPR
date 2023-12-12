@@ -9,11 +9,13 @@ import UIKit
 
 class CustomNavigationController: UINavigationController {
 
-    let VCs = [ConstructionConfiguratorVC()]
+    let VCs = [MainViewController()]
+    
+    let saveButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewControllers = VCs
     }
-
+    
 }

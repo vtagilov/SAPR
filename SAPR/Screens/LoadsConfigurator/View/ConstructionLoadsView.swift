@@ -26,7 +26,6 @@ class ConstructionLoadsView: ConstructionView {
     var selectedRod = 0
     
     
-    
     override func setParameters(_ stick: UIStick, _ tapPoint: CGPoint) {
         let stickNum = stick.number
         if isFocusedPower {

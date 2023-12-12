@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E70333122B273C2C00AA314E /* ConstructionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70333102B273C2C00AA314E /* ConstructionModel.xcdatamodeld */; };
+		E70333282B28A0CE00AA314E /* ConstructionSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70333272B28A0CE00AA314E /* ConstructionSaver.swift */; };
+		E703332E2B28A7E800AA314E /* Construction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E703332D2B28A7E800AA314E /* Construction.swift */; };
+		E70333682B29CCD900AA314E /* SavedConstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70333672B29CCD900AA314E /* SavedConstructionsTableViewCell.swift */; };
 		E73B11302B1DA44000475F3D /* DistributedLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B112F2B1DA44000475F3D /* DistributedLoad.swift */; };
 		E73B11322B1F1B4700475F3D /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11312B1F1B4700475F3D /* Direction.swift */; };
+		E73B114E2B20AF3E00475F3D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B114D2B20AF3E00475F3D /* MainViewController.swift */; };
+		E73B11542B20DA6400475F3D /* SavedConstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11532B20DA6400475F3D /* SavedConstructionsViewController.swift */; };
+		E73B11562B20DAC500475F3D /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11552B20DAC500475F3D /* UILabel.swift */; };
+		E73B11582B20DC2E00475F3D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11572B20DC2E00475F3D /* UIButton.swift */; };
 		E79AE1602B02249200291446 /* RodParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE15F2B02249200291446 /* RodParametres.swift */; };
 		E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1612B02562C00291446 /* ConstructionParametersView.swift */; };
 		E79AE1642B0633E700291446 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1632B0633E700291446 /* SupportView.swift */; };
@@ -33,8 +41,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E70333112B273C2C00AA314E /* ConstructionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConstructionModel.xcdatamodel; sourceTree = "<group>"; };
+		E70333272B28A0CE00AA314E /* ConstructionSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionSaver.swift; sourceTree = "<group>"; };
+		E703332D2B28A7E800AA314E /* Construction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Construction.swift; sourceTree = "<group>"; };
+		E70333672B29CCD900AA314E /* SavedConstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedConstructionsTableViewCell.swift; sourceTree = "<group>"; };
 		E73B112F2B1DA44000475F3D /* DistributedLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributedLoad.swift; sourceTree = "<group>"; };
 		E73B11312B1F1B4700475F3D /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		E73B114D2B20AF3E00475F3D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E73B11532B20DA6400475F3D /* SavedConstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedConstructionsViewController.swift; sourceTree = "<group>"; };
+		E73B11552B20DAC500475F3D /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		E73B11572B20DC2E00475F3D /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		E79AE15F2B02249200291446 /* RodParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodParametres.swift; sourceTree = "<group>"; };
 		E79AE1612B02562C00291446 /* ConstructionParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionParametersView.swift; sourceTree = "<group>"; };
 		E79AE1632B0633E700291446 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
@@ -70,16 +86,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E73B11332B1F225C00475F3D /* Extensions */ = {
+		E73B11332B1F225C00475F3D /* UIConstants */ = {
+			isa = PBXGroup;
+			children = (
+				E73B11552B20DAC500475F3D /* UILabel.swift */,
+				E73B11572B20DC2E00475F3D /* UIButton.swift */,
+			);
+			path = UIConstants;
+			sourceTree = "<group>";
+		};
+		E73B11492B20AE7900475F3D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E73B114A2B20AEDC00475F3D /* Model */,
+				E73B114B2B20AEE200475F3D /* View */,
+				E73B114C2B20AEFB00475F3D /* Controller */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		E73B114A2B20AEDC00475F3D /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Extensions;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E73B114B2B20AEE200475F3D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E73B114C2B20AEFB00475F3D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E73B114D2B20AF3E00475F3D /* MainViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E73B114F2B20DA3000475F3D /* SavedConstructions */ = {
+			isa = PBXGroup;
+			children = (
+				E73B11522B20DA4B00475F3D /* Model */,
+				E73B11512B20DA4700475F3D /* View */,
+				E73B11502B20DA4000475F3D /* Controller */,
+			);
+			path = SavedConstructions;
+			sourceTree = "<group>";
+		};
+		E73B11502B20DA4000475F3D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E73B11532B20DA6400475F3D /* SavedConstructionsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E73B11512B20DA4700475F3D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E70333672B29CCD900AA314E /* SavedConstructionsTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E73B11522B20DA4B00475F3D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E7D740E62AF15D4A00F03C13 = {
 			isa = PBXGroup;
 			children = (
+				E70333102B273C2C00AA314E /* ConstructionModel.xcdatamodeld */,
 				E7D740F12AF15D4A00F03C13 /* SAPR */,
 				E7D740F02AF15D4A00F03C13 /* Products */,
 			);
@@ -100,7 +184,7 @@
 				E7D7410B2AF17D9500F03C13 /* Recourses */,
 				E7FAE9052AFAAEEC0078510E /* Screens */,
 				E7FAE9042AFAAEDF0078510E /* Navigation */,
-				E73B11332B1F225C00475F3D /* Extensions */,
+				E73B11332B1F225C00475F3D /* UIConstants */,
 			);
 			path = SAPR;
 			sourceTree = "<group>";
@@ -111,6 +195,8 @@
 				E7D740FD2AF15D4B00F03C13 /* LaunchScreen.storyboard */,
 				E7D740F22AF15D4A00F03C13 /* AppDelegate.swift */,
 				E7D740F42AF15D4A00F03C13 /* SceneDelegate.swift */,
+				E70333272B28A0CE00AA314E /* ConstructionSaver.swift */,
+				E703332D2B28A7E800AA314E /* Construction.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -204,7 +290,9 @@
 		E7FAE9052AFAAEEC0078510E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E73B11492B20AE7900475F3D /* Main */,
 				E7E3A8682B10FEDD00CF1F82 /* ConstructionConfigurator */,
+				E73B114F2B20DA3000475F3D /* SavedConstructions */,
 				E7FAE9082AFAAF1F0078510E /* LoadsConfigurator */,
 			);
 			path = Screens;
@@ -291,9 +379,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7E3A86E2B11003700CF1F82 /* RodMaterial.swift in Sources */,
+				E70333282B28A0CE00AA314E /* ConstructionSaver.swift in Sources */,
+				E73B114E2B20AF3E00475F3D /* MainViewController.swift in Sources */,
 				E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */,
+				E73B11542B20DA6400475F3D /* SavedConstructionsViewController.swift in Sources */,
+				E73B11562B20DAC500475F3D /* UILabel.swift in Sources */,
+				E70333682B29CCD900AA314E /* SavedConstructionsTableViewCell.swift in Sources */,
+				E73B11582B20DC2E00475F3D /* UIButton.swift in Sources */,
 				E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */,
+				E703332E2B28A7E800AA314E /* Construction.swift in Sources */,
 				E7E3A8652B0E1B2D00CF1F82 /* MaterialsConfiguratorView.swift in Sources */,
+				E70333122B273C2C00AA314E /* ConstructionModel.xcdatamodeld in Sources */,
 				E79AE1662B06376400291446 /* SupportParametresView.swift in Sources */,
 				E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */,
 				E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */,
@@ -529,6 +625,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E70333102B273C2C00AA314E /* ConstructionModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E70333112B273C2C00AA314E /* ConstructionModel.xcdatamodel */,
+			);
+			currentVersion = E70333112B273C2C00AA314E /* ConstructionModel.xcdatamodel */;
+			name = ConstructionModel.xcdatamodeld;
+			path = SAPR/ConstructionModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E7D740E72AF15D4A00F03C13 /* Project object */;
 }

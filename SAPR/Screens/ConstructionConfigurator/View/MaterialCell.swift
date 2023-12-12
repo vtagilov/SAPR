@@ -86,9 +86,11 @@ extension MaterialCell: UITextFieldDelegate {
         var text = textField.text ?? ""
         text.removeAll(where: { $0 == " " })
         
-        if (text.rangeOfCharacter(from: CharacterSet.letters.union(.whitespaces)) != nil) {
-            delegate?.showErrorAlert(message: "Только чила и точка")
-            textField.text = "1.0"
+        guard let num = Double(text) else {
+            textField.text = "0.0"
+            delegate?.showErrorAlert(message: "Только числа и точка")
+            textField.becomeFirstResponder()
+            return
         }
         
         let index = text.firstIndex(where: { $0 == ","})

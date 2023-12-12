@@ -83,7 +83,7 @@ class ConstructionConfiguratorVC: UIViewController {
         supportParametresView.translatesAutoresizingMaskIntoConstraints = false
         
         segmentControl.insertSegment(withTitle: "Стержни", at: 0, animated: true)
-        segmentControl.insertSegment(withTitle: "Узлы", at: 1, animated: true)
+        segmentControl.insertSegment(withTitle: "Заделки", at: 1, animated: true)
         segmentControl.insertSegment(withTitle: "Материалы", at: 2, animated: true)
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(segmentControlAction), for: .valueChanged)
@@ -110,7 +110,6 @@ class ConstructionConfiguratorVC: UIViewController {
 
 
 extension ConstructionConfiguratorVC: ConstructionViewDelegate {
-    
     func rodWasSelected(_ rod: UIStick) {
         if rodParametres.count > rod.number {
             constrictionParametresView.configureRod(number: rod.number, rodParameter: rodParametres[rod.number])
@@ -128,10 +127,12 @@ extension ConstructionConfiguratorVC: ConstructionParametersDelegate {
     
     func deleteLastStick() {
         rodParametres.removeLast()
+        rodMaterials.removeLast()
         constructionView.deleteLastStick()
     }
     
     func addStick() {
+        rodParametres.append(RodParametres(length: 1.0, square: 1.0))
         constructionView.addStickTo(.right)
     }
     

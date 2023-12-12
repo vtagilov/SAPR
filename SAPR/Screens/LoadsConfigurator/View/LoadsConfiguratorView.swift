@@ -94,12 +94,11 @@ extension LoadsConfiguratorView: UITextFieldDelegate {
         var text = textField.text ?? ""
         text.removeAll(where: { $0 == " " })
         
-        if (text.rangeOfCharacter(from: CharacterSet.letters.union(.whitespaces)) != nil) {
+        guard Double(text) != nil else {
             textField.text = "0.0"
-            delegate?.showErrorAlert(message: "Только чила и точка")
+            delegate?.showErrorAlert(message: "Только числа и точка")
             textField.becomeFirstResponder()
             return
-            
         }
         
         let index = text.firstIndex(where: { $0 == ","})
@@ -118,6 +117,7 @@ extension LoadsConfiguratorView: UITextFieldDelegate {
             break
         }
     }
+    
     
     
     

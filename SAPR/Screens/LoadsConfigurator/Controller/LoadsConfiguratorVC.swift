@@ -10,7 +10,6 @@ import UIKit
 class LoadsConfiguratorVC: UIViewController {
 
     var constructionLoadsView = ConstructionLoadsView()
-    
     let loadsConfiguratorView = LoadsConfiguratorView()
     
     var tapRecognizer = UITapGestureRecognizer()
@@ -34,16 +33,9 @@ class LoadsConfiguratorVC: UIViewController {
     }
     
     
-    
     @objc private func tapRecognizerAction() {
         loadsConfiguratorView.subviews.forEach({ $0.resignFirstResponder() })
-//        materialsParametresView.tableView.subviews.forEach({
-//            let cell = ($0 as? MaterialCell)
-//            cell?.elasticModulusField.resignFirstResponder()
-//            cell?.permissibleVoltageField.resignFirstResponder()
-//        })
     }
-    
     
     
     func presentNewAlert(message: String) {

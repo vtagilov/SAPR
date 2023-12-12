@@ -10,9 +10,7 @@ import UIKit
 protocol ConstructionParametersDelegate {
     func setParametrs(_ number: Int, _ RodParameter: RodParametres)
     func deleteLastStick()
-    
     func addStick()
-    
     func showErrorAlert(message: String)
 }
 
@@ -204,7 +202,8 @@ extension ConstructionParametersView: UITextFieldDelegate {
         textField.text = text
         
         guard let num = Double(text) else {
-            delegate?.showErrorAlert(message: "Только чила и точка")
+            textField.text = "0.0"
+            delegate?.showErrorAlert(message: "Только числа и точка")
             textField.becomeFirstResponder()
             return
         }
