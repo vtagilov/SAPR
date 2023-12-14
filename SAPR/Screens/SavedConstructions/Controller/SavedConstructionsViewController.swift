@@ -29,6 +29,11 @@ class SavedConstructionsViewController: UIViewController {
         setConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+        super.viewWillAppear(animated)
+    }
+    
     
     private func configureUI() {
         tableView.delegate = self
@@ -77,6 +82,9 @@ extension SavedConstructionsViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let tabBar = CustomTabBarController()
+        tabBar.setConstruction(constructions[indexPath.row])
+        self.navigationController?.pushViewController(tabBar, animated: true)
     }
 }
 

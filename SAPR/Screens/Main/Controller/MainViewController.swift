@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
 
     
     private func configureUI() {
+        self.view.backgroundColor = .black
         titleLabel.text = "SAPR IOS"
         titleLabel.font = .boldSystemFont(ofSize: 32)
         newConstructionButton.setTitle("Новая конструкция", for: .normal)
@@ -56,6 +57,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: SavedConstructionsViewControllerDelegate {
     func getConstructions() -> [Construction] {
+        constuctionSaver.loadConstructions()
         return constuctionSaver.constructions
     }
     
@@ -76,14 +78,14 @@ extension MainViewController {
         }
         
         NSLayoutConstraint.activate([
-            titleLabel.rightAnchor.constraint(equalTo: view.leftAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             
             newConstructionButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            newConstructionButton.rightAnchor.constraint(equalTo: view.leftAnchor),
+            newConstructionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             loadConstructionButton.topAnchor.constraint(equalTo: newConstructionButton.bottomAnchor, constant: 50),
-            loadConstructionButton.rightAnchor.constraint(equalTo: view.leftAnchor),
+            loadConstructionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 }

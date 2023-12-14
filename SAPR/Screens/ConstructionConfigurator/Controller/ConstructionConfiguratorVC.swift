@@ -32,7 +32,7 @@ class ConstructionConfiguratorVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = .black
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizerAction))
         view.addGestureRecognizer(tapRecognizer)
         
@@ -126,9 +126,13 @@ extension ConstructionConfiguratorVC: ConstructionViewDelegate {
 extension ConstructionConfiguratorVC: ConstructionParametersDelegate {
     
     func deleteLastStick() {
-        rodParametres.removeLast()
-        rodMaterials.removeLast()
-        constructionView.deleteLastStick()
+        if rodParametres.count == 1 {
+            rodParametres = [RodParametres(length: 1.0, square: 1.0)]
+            constrictionParametresView.configureRod(number: 0, rodParameter: rodParametres.first!)
+        } else {
+            rodParametres.removeLast()
+            constructionView.deleteLastStick()
+        }
     }
     
     func addStick() {

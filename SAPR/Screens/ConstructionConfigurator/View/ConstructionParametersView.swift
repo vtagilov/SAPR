@@ -121,10 +121,8 @@ class ConstructionParametersView: UIView {
     
     
     @objc private func deleteButtonAction() {
-        if rodCount > 1 {
-            rodCount -= 1
-            delegate?.deleteLastStick()
-        }
+        rodCount -= 1
+        delegate?.deleteLastStick()
     }
     
     

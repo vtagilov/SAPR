@@ -17,7 +17,13 @@ class SupportParametresView: UIView {
     
     var delegate: SupportParametresViewDelegate?
     
-    var supportParametres = SupportParametres(isLeftFixed: false, isRightFixed: false)
+    var supportParametres = SupportParametres(isLeftFixed: false, isRightFixed: false) {
+        didSet {
+            leftButton.isSelected = self.supportParametres.isLeftFixed
+            rightButton.isSelected = self.supportParametres.isRightFixed
+            
+        }
+    }
     
     let leftLabel = UILabel()
     let rightLabel = UILabel()
