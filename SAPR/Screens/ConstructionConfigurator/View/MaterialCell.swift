@@ -86,7 +86,7 @@ extension MaterialCell: UITextFieldDelegate {
         var text = textField.text ?? ""
         text.removeAll(where: { $0 == " " })
         
-        guard let num = Double(text) else {
+        guard Double(text) != nil else {
             textField.text = "0.0"
             delegate?.showErrorAlert(message: "Только числа и точка")
             textField.becomeFirstResponder()

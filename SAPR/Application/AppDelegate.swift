@@ -4,7 +4,7 @@
 //
 //  Created by Владимир on 31.10.2023.
 //
-
+import CorePlot
 import UIKit
 import CoreData
 

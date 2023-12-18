@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D44A396088433CA1FF9CA36E /* Pods_SAPR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755DBD70853658DDE60AFD8D /* Pods_SAPR.framework */; };
 		E70333122B273C2C00AA314E /* ConstructionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E70333102B273C2C00AA314E /* ConstructionModel.xcdatamodeld */; };
 		E70333282B28A0CE00AA314E /* ConstructionSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70333272B28A0CE00AA314E /* ConstructionSaver.swift */; };
 		E703332E2B28A7E800AA314E /* Construction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E703332D2B28A7E800AA314E /* Construction.swift */; };
@@ -41,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		755DBD70853658DDE60AFD8D /* Pods_SAPR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SAPR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC813201124A756942657936 /* Pods-SAPR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAPR.release.xcconfig"; path = "Target Support Files/Pods-SAPR/Pods-SAPR.release.xcconfig"; sourceTree = "<group>"; };
 		E70333112B273C2C00AA314E /* ConstructionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConstructionModel.xcdatamodel; sourceTree = "<group>"; };
 		E70333272B28A0CE00AA314E /* ConstructionSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionSaver.swift; sourceTree = "<group>"; };
 		E703332D2B28A7E800AA314E /* Construction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Construction.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		E7FAE9092AFAAF5F0078510E /* ConstructionConfiguratorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionConfiguratorVC.swift; sourceTree = "<group>"; };
 		E7FAE90D2AFAB2D40078510E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		E7FAE9112AFABFD80078510E /* StickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickView.swift; sourceTree = "<group>"; };
+		EE2DC72756F95DA71F2010CC /* Pods-SAPR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAPR.debug.xcconfig"; path = "Target Support Files/Pods-SAPR/Pods-SAPR.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,12 +84,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D44A396088433CA1FF9CA36E /* Pods_SAPR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66697D0AF0FB26177D564E00 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EE2DC72756F95DA71F2010CC /* Pods-SAPR.debug.xcconfig */,
+				BC813201124A756942657936 /* Pods-SAPR.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D98C3C6C6F72928A5F97F613 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				755DBD70853658DDE60AFD8D /* Pods_SAPR.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E73B11332B1F225C00475F3D /* UIConstants */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +188,8 @@
 				E70333102B273C2C00AA314E /* ConstructionModel.xcdatamodeld */,
 				E7D740F12AF15D4A00F03C13 /* SAPR */,
 				E7D740F02AF15D4A00F03C13 /* Products */,
+				66697D0AF0FB26177D564E00 /* Pods */,
+				D98C3C6C6F72928A5F97F613 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -315,9 +339,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E7D741032AF15D4B00F03C13 /* Build configuration list for PBXNativeTarget "SAPR" */;
 			buildPhases = (
+				06677E0FB2B64FE57A13C4AF /* [CP] Check Pods Manifest.lock */,
 				E7D740EB2AF15D4A00F03C13 /* Sources */,
 				E7D740EC2AF15D4A00F03C13 /* Frameworks */,
 				E7D740ED2AF15D4A00F03C13 /* Resources */,
+				6A8C9C05CD3A1337CE47B58C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -372,6 +398,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06677E0FB2B64FE57A13C4AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SAPR-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A8C9C05CD3A1337CE47B58C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SAPR/Pods-SAPR-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SAPR/Pods-SAPR-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SAPR/Pods-SAPR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E7D740EB2AF15D4A00F03C13 /* Sources */ = {
@@ -545,6 +613,7 @@
 		};
 		E7D741042AF15D4B00F03C13 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE2DC72756F95DA71F2010CC /* Pods-SAPR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -552,6 +621,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KY758VGLM7;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SAPR/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SAPR;
@@ -575,6 +645,7 @@
 		};
 		E7D741052AF15D4B00F03C13 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC813201124A756942657936 /* Pods-SAPR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -582,6 +653,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KY758VGLM7;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SAPR/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SAPR;
