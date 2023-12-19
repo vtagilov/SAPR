@@ -21,7 +21,7 @@ class SupportParametresView: UIView {
         didSet {
             leftButton.isSelected = self.supportParametres.isLeftFixed
             rightButton.isSelected = self.supportParametres.isRightFixed
-            
+            delegate?.setParametrs(supportParametres)
         }
     }
     
@@ -75,7 +75,6 @@ class SupportParametresView: UIView {
         } else if sender == rightButton {
             supportParametres.isRightFixed = !supportParametres.isRightFixed
         }
-        delegate?.setParametrs(supportParametres)
     }
 
     

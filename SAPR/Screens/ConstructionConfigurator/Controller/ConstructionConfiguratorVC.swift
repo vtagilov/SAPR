@@ -26,7 +26,6 @@ class ConstructionConfiguratorVC: UIViewController {
     var materialsConstraints = [NSLayoutConstraint]()
         
     var tapRecognizer = UITapGestureRecognizer()
-    
     var segmentControl = UISegmentedControl()
     
     
@@ -56,6 +55,17 @@ class ConstructionConfiguratorVC: UIViewController {
     }
     
     
+    func setConstruction(_ construction: Construction) {
+        supportParametresView.supportParametres = construction.supportParametres
+        for _ in 0 ..< construction.rodParametres.count - 1 {
+            self.addStick()
+        }
+        materialsParametresView.materials = construction.rodMaterials
+        rodParametres = construction.rodParametres
+        constructionView.setParameters(constructionView.stick, CGPoint(x: 0.0, y: 0.0))
+        
+    }
+    
     
     func showErrorAlert(message: String) {
         if let presentedViewController = presentedViewController {
@@ -68,7 +78,7 @@ class ConstructionConfiguratorVC: UIViewController {
     }
 
     
-    func presentNewAlert(message: String) {
+    private func presentNewAlert(message: String) {
         let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
@@ -94,7 +104,7 @@ class ConstructionConfiguratorVC: UIViewController {
     
     @objc private func tapRecognizerAction() {
         constrictionParametresView.subviews.forEach({ $0.resignFirstResponder() })
-        materialsParametresView.tableView.subviews.forEach({ 
+        materialsParametresView.tableView.subviews.forEach({
             let cell = ($0 as? MaterialCell)
             cell?.elasticModulusField.resignFirstResponder()
             cell?.permissibleVoltageField.resignFirstResponder()

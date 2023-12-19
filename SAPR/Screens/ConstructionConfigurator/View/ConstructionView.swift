@@ -15,6 +15,16 @@ protocol ConstructionViewDelegate {
 
 class ConstructionView: UIView {
 
+    var stickCount: Int {
+        var c = 1
+        var currentStick = self.stick.rightStick
+        while currentStick != nil {
+            currentStick = currentStick?.rightStick
+            c += 1
+        }
+        return c
+    }
+    
     let stick = UIStick()
     
     let leftSupport = UISupport(frame: CGRect(x: 0, y: 0, width: 50, height: 100))

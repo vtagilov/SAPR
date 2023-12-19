@@ -18,6 +18,10 @@
 		E73B11542B20DA6400475F3D /* SavedConstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11532B20DA6400475F3D /* SavedConstructionsViewController.swift */; };
 		E73B11562B20DAC500475F3D /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11552B20DAC500475F3D /* UILabel.swift */; };
 		E73B11582B20DC2E00475F3D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73B11572B20DC2E00475F3D /* UIButton.swift */; };
+		E79293612B306DF40018E872 /* CalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79293602B306DF40018E872 /* CalculationViewController.swift */; };
+		E79293642B31DA3B0018E872 /* CalculationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79293632B31DA3B0018E872 /* CalculationModel.swift */; };
+		E79293662B31E05F0018E872 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79293652B31E05F0018E872 /* Double.swift */; };
+		E79293682B31E4580018E872 /* ConstructionWithGraphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79293672B31E4580018E872 /* ConstructionWithGraphs.swift */; };
 		E79AE1602B02249200291446 /* RodParametres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE15F2B02249200291446 /* RodParametres.swift */; };
 		E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1612B02562C00291446 /* ConstructionParametersView.swift */; };
 		E79AE1642B0633E700291446 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE1632B0633E700291446 /* SupportView.swift */; };
@@ -54,6 +58,10 @@
 		E73B11532B20DA6400475F3D /* SavedConstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedConstructionsViewController.swift; sourceTree = "<group>"; };
 		E73B11552B20DAC500475F3D /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		E73B11572B20DC2E00475F3D /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		E79293602B306DF40018E872 /* CalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationViewController.swift; sourceTree = "<group>"; };
+		E79293632B31DA3B0018E872 /* CalculationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationModel.swift; sourceTree = "<group>"; };
+		E79293652B31E05F0018E872 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		E79293672B31E4580018E872 /* ConstructionWithGraphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionWithGraphs.swift; sourceTree = "<group>"; };
 		E79AE15F2B02249200291446 /* RodParametres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodParametres.swift; sourceTree = "<group>"; };
 		E79AE1612B02562C00291446 /* ConstructionParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionParametersView.swift; sourceTree = "<group>"; };
 		E79AE1632B0633E700291446 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
@@ -113,6 +121,7 @@
 			children = (
 				E73B11552B20DAC500475F3D /* UILabel.swift */,
 				E73B11572B20DC2E00475F3D /* UIButton.swift */,
+				E79293652B31E05F0018E872 /* Double.swift */,
 			);
 			path = UIConstants;
 			sourceTree = "<group>";
@@ -178,6 +187,40 @@
 		E73B11522B20DA4B00475F3D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E756D8052B3064B10027DB81 /* Calculation */ = {
+			isa = PBXGroup;
+			children = (
+				E792935E2B306DD60018E872 /* Model */,
+				E792935D2B306DD20018E872 /* View */,
+				E792935C2B306DCC0018E872 /* Controller */,
+			);
+			path = Calculation;
+			sourceTree = "<group>";
+		};
+		E792935C2B306DCC0018E872 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E79293602B306DF40018E872 /* CalculationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E792935D2B306DD20018E872 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E79293672B31E4580018E872 /* ConstructionWithGraphs.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E792935E2B306DD60018E872 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E79293632B31DA3B0018E872 /* CalculationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,6 +357,7 @@
 		E7FAE9052AFAAEEC0078510E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E756D8052B3064B10027DB81 /* Calculation */,
 				E73B11492B20AE7900475F3D /* Main */,
 				E7E3A8682B10FEDD00CF1F82 /* ConstructionConfigurator */,
 				E73B114F2B20DA3000475F3D /* SavedConstructions */,
@@ -448,13 +492,16 @@
 			files = (
 				E7E3A86E2B11003700CF1F82 /* RodMaterial.swift in Sources */,
 				E70333282B28A0CE00AA314E /* ConstructionSaver.swift in Sources */,
+				E79293662B31E05F0018E872 /* Double.swift in Sources */,
 				E73B114E2B20AF3E00475F3D /* MainViewController.swift in Sources */,
 				E7D740F32AF15D4A00F03C13 /* AppDelegate.swift in Sources */,
 				E73B11542B20DA6400475F3D /* SavedConstructionsViewController.swift in Sources */,
 				E73B11562B20DAC500475F3D /* UILabel.swift in Sources */,
 				E70333682B29CCD900AA314E /* SavedConstructionsTableViewCell.swift in Sources */,
 				E73B11582B20DC2E00475F3D /* UIButton.swift in Sources */,
+				E79293642B31DA3B0018E872 /* CalculationModel.swift in Sources */,
 				E79AE1622B02562C00291446 /* ConstructionParametersView.swift in Sources */,
+				E79293682B31E4580018E872 /* ConstructionWithGraphs.swift in Sources */,
 				E703332E2B28A7E800AA314E /* Construction.swift in Sources */,
 				E7E3A8652B0E1B2D00CF1F82 /* MaterialsConfiguratorView.swift in Sources */,
 				E70333122B273C2C00AA314E /* ConstructionModel.xcdatamodeld in Sources */,
@@ -462,6 +509,7 @@
 				E7D740F52AF15D4A00F03C13 /* SceneDelegate.swift in Sources */,
 				E7D7410A2AF17D8700F03C13 /* ConstructionView.swift in Sources */,
 				E79AE1642B0633E700291446 /* SupportView.swift in Sources */,
+				E79293612B306DF40018E872 /* CalculationViewController.swift in Sources */,
 				E7C6F7DE2B14A2AD00B2BEF0 /* LoadsConfiguratorView.swift in Sources */,
 				E7FAE9122AFABFD80078510E /* StickView.swift in Sources */,
 				E7FAE9032AFAAEDB0078510E /* CustomNavigationController.swift in Sources */,
@@ -544,7 +592,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -601,7 +649,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

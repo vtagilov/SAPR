@@ -32,6 +32,33 @@ class LoadsConfiguratorVC: UIViewController {
         view.addGestureRecognizer(tapRecognizer)
     }
     
+    func setConstruction(_ construction: Construction) {
+        constructionLoadsView.removeAllRods()
+        for _ in 1 ..< construction.rodParametres.count {
+            constructionLoadsView.addStickTo(.right)
+        }
+        constructionLoadsView.configureSupports(construction.supportParametres)
+        constructionLoadsView.setNodePoints()
+        self.focusedLoads = construction.focusedLoads
+        for i in 0 ..< construction.focusedLoads.count {
+            constructionLoadsView.setFocusedLoad(numOfNode: i, power: construction.focusedLoads[i])
+        }
+        self.distributedLoads = construction.distributedLoads
+        for i in 0 ..< construction.distributedLoads.count {
+            constructionLoadsView.setDistributedLoad(numOfRod: i, power: construction.distributedLoads[i])
+        }
+    }
+    
+    func getLoads() -> (focused: [Double], distributed: [Double]) {
+        while constructionLoadsView.selectedNode >= focusedLoads.count {
+            focusedLoads.append(0.0)
+        }
+        while constructionLoadsView.selectedRod >= distributedLoads.count {
+            distributedLoads.append(0.0)
+        }
+        return (focusedLoads, distributedLoads)
+    }
+    
     
     @objc private func tapRecognizerAction() {
         loadsConfiguratorView.subviews.forEach({ $0.resignFirstResponder() })
@@ -67,6 +94,7 @@ extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
         }
         focusedLoads[constructionLoadsView.selectedNode] = focusedPower
         constructionLoadsView.setFocusedLoad(numOfNode: constructionLoadsView.selectedNode, power: focusedPower)
+        print("loadsVC focused - ", focusedLoads)
     }
     
     

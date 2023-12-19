@@ -12,14 +12,18 @@ class CustomTabBarController: UITabBarController {
     
     let constructionSaver = ConstructionSaver()
     
+    var construction: Construction?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewControllers = [ConstructionConfiguratorVC(), LoadsConfiguratorVC()]
+        self.viewControllers = [ConstructionConfiguratorVC(), LoadsConfiguratorVC(), CalculationViewController()]
         viewControllers?[0].title = "Конструкция"
         viewControllers?[1].title = "Нагрузки"
+        viewControllers?[2].title = "Расчет"
         
         tabBar.items![0].image = UIImage(systemName: "smallcircle.filled.circle")
         tabBar.items![1].image = UIImage(systemName: "plus.circle")!.withRenderingMode(.automatic)
+        tabBar.items![2].image = UIImage(systemName: "arrow.right")!.withRenderingMode(.automatic)
         self.delegate = self
         
     }
@@ -32,28 +36,13 @@ class CustomTabBarController: UITabBarController {
     
     
     func setConstruction(_ construction: Construction) {
+//        self.delegate = nil
         self.title = construction.name
+        self.construction = construction
         let constructionVC = viewControllers![0] as! ConstructionConfiguratorVC
+        constructionVC.setConstruction(construction)
         let loadsVC = viewControllers![1] as! LoadsConfiguratorVC
-        
-        for _ in 1 ..< construction.rodParametres.count {
-            constructionVC.constructionView.addStickTo(.right)
-        }
-        constructionVC.setParametrs(construction.supportParametres)
-        constructionVC.supportParametresView.supportParametres = construction.supportParametres
-        constructionVC.rodParametres = construction.rodParametres
-        constructionVC.rodMaterials = construction.rodMaterials
-        constructionVC.materialsParametresView.materials = construction.rodMaterials
-        loadsVC.focusedLoads = construction.focusedLoads
-        loadsVC.distributedLoads = construction.distributedLoads
-        for i in 0 ..< construction.focusedLoads.count {
-            loadsVC.constructionLoadsView.setFocusedLoad(numOfNode: i, power: construction.focusedLoads[i])
-            loadsVC.setParametres(focusedPower: construction.focusedLoads[i])
-        }
-        for i in 0 ..< construction.distributedLoads.count {
-            loadsVC.constructionLoadsView.setDistributedLoad(numOfRod: i, power: construction.distributedLoads[i])
-            loadsVC.setParametres(distributedPower: construction.distributedLoads[i])
-        }
+        loadsVC.setConstruction(construction)
     }
     
     @objc func saveButtonAction() {
@@ -119,9 +108,9 @@ class CustomTabBarController: UITabBarController {
 
     
     private func showAlertWithInput(completion: @escaping (String?, Bool) -> Void) {
-        let alertController = UIAlertController(title: "Введите значение", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Введите название", message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
-            textField.placeholder = "Значение"
+            textField.placeholder = "Название"
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { _ in
             completion(nil, true)
@@ -148,24 +137,23 @@ class CustomTabBarController: UITabBarController {
 }
 
 extension CustomTabBarController: UITabBarControllerDelegate {
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let vc = viewControllers![0] as! ConstructionConfiguratorVC
+        let vc2 = viewControllers![1] as! LoadsConfiguratorVC
+        let vc3 = viewControllers![2] as! CalculationViewController
+        let loads = vc2.getLoads()
+        construction = Construction(supportParametres: vc.supportParametres, rodParametres: vc.rodParametres, rodMaterials: vc.rodMaterials, focusedLoads: loads.focused, distributedLoads: loads.distributed)
         if let index = tabBarController.viewControllers?.firstIndex(of: viewController) {
             switch index {
             case 0:
-                print()
+                break
             case 1:
-                let vc = viewControllers![0] as! ConstructionConfiguratorVC
-                let vc2 = viewControllers![1] as! LoadsConfiguratorVC
-                
-                vc2.constructionLoadsView.removeAllRods()
                 vc2.constructionLoadsView.setPowerType(isFocused: true)
                 vc2.loadsConfiguratorView.loadsTypeSegmentControl.selectedSegmentIndex = 0
-                var stick = vc.constructionView.stick
-                while stick.rightStick != nil {
-                    vc2.constructionLoadsView.addStickTo(.right)
-                    stick = stick.rightStick!
-                }
-                vc2.constructionLoadsView.setNodePoints()
+                vc2.setConstruction(construction!)
+            case 2:
+                vc3.calculate(construction!)
             default:
                 break
             }
