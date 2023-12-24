@@ -18,24 +18,35 @@ class CalculationModel {
     private var delta = [Double]()
     private var Nx = [[Double]]()
     
-    let aDimension = 0
+    var aDimension = 0
+    
+    var isCalculatedSuccessfully = false
     
     
     func calculate(_ construction: Construction) {
+        delta = []
+        A = []
+        b = []
+        Nx = []
         self.construction = construction
         calculateA()
         calculateB()
         calculateDelta()
+        if delta.isEmpty {
+            print("delta empty")
+            return
+        }
         calculateNx()
     }
     
     func configureText() -> String {
-        var text = "Промежуточные значения: \n"
+        
+        var text = ""
         for lineNum in 0 ..< A.count {
             if lineNum == ( construction.rodParametres.count + 1 ) / 2 {
                 text += "A = ["
             } else {
-                text += "        ["
+                text += "       ["
             }
             for num in A[lineNum] {
                 text += "  \(num.getRounded(numsAfterPoint))  "
@@ -51,18 +62,75 @@ class CalculationModel {
         for num in delta {
             text += "  \(num.getRounded(numsAfterPoint))  "
         }
-        text += "]\n"
         
+        text += "]\n\nNx:\n"
+        text += "   i    |   N0    |   NL   \n"
+        text += "----------------------\n"
         for i in 0 ..< Nx.count {
-            text += "N\(i)0 = \(Nx[i][0].getRounded(numsAfterPoint))     N\(i)L = \(Nx[i][1].getRounded(numsAfterPoint))"
+            text += "   \(i/2 + 1)    |   \(Nx[i][0].getRounded(numsAfterPoint))   |   \(Nx[i][1].getRounded(numsAfterPoint))\n"
+        }
+        
+        
+        let Ux = getPointUx()
+        text += "\n\nUx:\n"
+        text += "   i    |   U0    |   UL   \n"
+        text += "----------------------\n"
+        for i in 0 ..< Ux.count {
+            if i % 2 == 0 {
+                text += "   \(i/2 + 1)    |   \(Ux[i].getRounded(numsAfterPoint))   |"
+            } else {
+                text += "   \(Ux[i].getRounded(numsAfterPoint))  \n"
+            }
+        }
+        
+        
+        let σ = getPointσ()
+        text += "\n\nσ:\n"
+        text += "   i    |   σ0    |   σL   \n"
+        text += "----------------------\n"
+        for i in 0 ..< σ.count {
+            if i % 2 == 0 {
+                text += "   \(i/2 + 1)    |   \(σ[i].getRounded(numsAfterPoint))   |"
+            } else {
+                text += "   \(σ[i].getRounded(numsAfterPoint))  \n"
+            }
         }
         
         return text
     }
     
+    func getPointNx() -> [Double] {
+        var points = [Double]()
+        Nx.forEach { twoPoints in
+            twoPoints.forEach { xCoordinate in
+                points.append(xCoordinate)
+            }
+        }
+        return points
+    }
+    
+    func getPointUx() -> [Double] {
+        var points = [Double]()
+        for i in 0 ..< delta.count {
+            if i != 0 && i != delta.count - 1 {
+                points.append(delta[i])
+            }
+            points.append(delta[i])
+        }
+        return points
+    }
+    
+    func getPointσ() -> [Double] {
+        var points = [Double]()
+        let Nx = getPointNx()
+        for i in 0 ..< Nx.count {
+            points.append(Nx[i] / construction.rodParametres[i >= construction.rodParametres.count ? construction.rodParametres.count - 1 : i].square)
+        }
+        return points
+    }
     
     private func calculateA() {
-        let aDimension = construction.rodParametres.count + 1
+        aDimension = construction.rodParametres.count + 1
         A = Array(repeating: Array(repeating: 0, count: aDimension), count: aDimension)
         A[0][0] = construction.rodMaterials[construction.rodParametres[0].materialId!].elasticModulus * construction.rodParametres[0].square / construction.rodParametres[0].length
         A[aDimension - 1][aDimension - 1] = construction.rodMaterials[construction.rodParametres[aDimension - 2].materialId!].elasticModulus * construction.rodParametres[aDimension - 2].square / construction.rodParametres[aDimension - 2].length
@@ -86,7 +154,16 @@ class CalculationModel {
     }
     
     private func calculateB() {
-        let bDimension = construction.focusedLoads.count
+        
+        while construction.focusedLoads.count != construction.rodParametres.count + 1 {
+            construction.focusedLoads.append(0.0)
+        }
+        while construction.distributedLoads.count != construction.rodParametres.count {
+            construction.distributedLoads.append(0.0)
+        }
+        
+        var bDimension = construction.focusedLoads.count
+        
         b = Array(repeating: 0, count: bDimension)
         for i in 0 ..< bDimension {
             if i == 0 {
@@ -112,6 +189,7 @@ class CalculationModel {
     }
     
     private func calculateNx() {
+        Nx = []
         for i in 0 ..< delta.count - 1 {
             let materialId = construction.rodParametres[i].materialId!
             let E = construction.rodMaterials[materialId].elasticModulus
@@ -132,6 +210,10 @@ class CalculationModel {
 //MARK: - Mathematic methods
 extension CalculationModel {
     private func solveLinearEquation(A: [[Double]], b: [Double]) -> [Double]? {
+        var b = b
+        while b.count < A.count {
+            b.append(0)
+        }
         guard A.count > 0, A[0].count > 0, A.count == b.count else {
             return nil
         }

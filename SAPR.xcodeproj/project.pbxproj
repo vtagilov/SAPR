@@ -116,14 +116,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E73B11332B1F225C00475F3D /* UIConstants */ = {
+		E73B11332B1F225C00475F3D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				E73B11552B20DAC500475F3D /* UILabel.swift */,
 				E73B11572B20DC2E00475F3D /* UIButton.swift */,
 				E79293652B31E05F0018E872 /* Double.swift */,
 			);
-			path = UIConstants;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E73B11492B20AE7900475F3D /* Main */ = {
@@ -251,7 +251,7 @@
 				E7D7410B2AF17D9500F03C13 /* Recourses */,
 				E7FAE9052AFAAEEC0078510E /* Screens */,
 				E7FAE9042AFAAEDF0078510E /* Navigation */,
-				E73B11332B1F225C00475F3D /* UIConstants */,
+				E73B11332B1F225C00475F3D /* Extensions */,
 			);
 			path = SAPR;
 			sourceTree = "<group>";
@@ -665,6 +665,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -697,6 +698,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

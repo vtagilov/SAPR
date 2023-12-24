@@ -140,7 +140,7 @@ class ConstructionLoadsView: ConstructionView {
     
     
     
-    private func sticksHandler(handle: (UIStick) -> Void) {
+    func sticksHandler(handle: (UIStick) -> Void) {
         var currentStick = self.stick
         while currentStick.rightStick != nil {
             handle(currentStick)
@@ -150,7 +150,7 @@ class ConstructionLoadsView: ConstructionView {
     }
     
     
-    private func getStick(num: Int) -> UIStick? {
+    func getStick(num: Int) -> UIStick? {
         var currentStick = self.stick
         while currentStick.number != num && currentStick.rightStick != nil {
             currentStick = currentStick.rightStick!
@@ -162,7 +162,7 @@ class ConstructionLoadsView: ConstructionView {
     }
     
     
-    private func getPreviousStick(stick: UIStick) -> UIStick? {
+    func getPreviousStick(stick: UIStick) -> UIStick? {
         var currentStick = self.stick
         while currentStick.rightStick != stick && currentStick.rightStick != nil {
             currentStick = currentStick.rightStick!
@@ -174,7 +174,7 @@ class ConstructionLoadsView: ConstructionView {
     }
     
     
-    private func findStick(_ handle: (UIStick) -> Bool) -> UIStick? {
+    func findStick(_ handle: (UIStick) -> Bool) -> UIStick? {
         var currentRod = self.stick
         while handle(currentRod) && currentRod.rightStick != nil {
             currentRod = currentRod.rightStick!

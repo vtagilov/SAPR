@@ -42,6 +42,8 @@ class SavedConstructionsTableViewCell: UITableViewCell {
         
         deleteButton.setTitle("Удалить", for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
+        deleteButton.setTitleColor(.systemBlue, for: .normal)
+        deleteButton.setTitleColor(.lightGray, for: .highlighted)
         
         constructionView.removeAllRods()
         for _ in 1 ..< construction.rodParametres.count {

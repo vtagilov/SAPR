@@ -94,7 +94,6 @@ extension LoadsConfiguratorVC: LoadsConfiguratorViewDelegate {
         }
         focusedLoads[constructionLoadsView.selectedNode] = focusedPower
         constructionLoadsView.setFocusedLoad(numOfNode: constructionLoadsView.selectedNode, power: focusedPower)
-        print("loadsVC focused - ", focusedLoads)
     }
     
     
