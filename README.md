@@ -1,4 +1,8 @@
-В разработке.
+<img width="230" alt="image" src="https://github.com/vtagilov/SAPR/assets/44909454/c956665f-6a5a-49a8-aaf7-5d18a3b30545">
+<img width="230" alt="image" src="https://github.com/vtagilov/SAPR/assets/44909454/80ec6a6b-5ca4-4b47-8577-4c46dffec070">
+<img width="230" alt="image" src="https://github.com/vtagilov/SAPR/assets/44909454/a25e0cce-0303-489b-a548-6401a61315e7">
+<img width="230" alt="image" src="https://github.com/vtagilov/SAPR/assets/44909454/f4291d2b-341e-44a7-a37b-489a8f975bd7">
+
 
 SAPR(САПР) - Система Атоматизированного Прочностного Расчета
 Кратко о проекте: Учитывая вводные параметры система расчитывает результаты воздействия нагрузок на стержни.
